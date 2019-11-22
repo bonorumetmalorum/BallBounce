@@ -23,7 +23,7 @@ int main(void)
 		return -1;
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(640, 480, "Ball Bounce", NULL, NULL);
+	window = glfwCreateWindow(1280, 720, "Ball Bounce", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -32,17 +32,19 @@ int main(void)
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
+
+
+	if (glewInit() != GLEW_OK)
+		std::cout << "error" << std::endl;
 	
 	ImGui::CreateContext();
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 130");
 	ImGui::StyleColorsDark();
 
-	if (glewInit() != GLEW_OK)
-		std::cout << "error" << std::endl;
 
 	bool show_demo_window = true;
-
+	bool show_another_window = false;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 
@@ -50,7 +52,7 @@ int main(void)
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
+		//glClear(GL_COLOR_BUFFER_BIT);
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -67,6 +69,7 @@ int main(void)
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		glfwSwapBuffers(window);
+		glfwPollEvents();
 	}
 
 	glfwTerminate();
