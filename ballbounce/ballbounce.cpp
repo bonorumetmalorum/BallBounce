@@ -72,8 +72,15 @@ int main(void)
 		glfwPollEvents();
 	}
 
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
+	glfwDestroyWindow(window);
 	glfwTerminate();
 
+	return 0;
 	
 	return 0;
 }

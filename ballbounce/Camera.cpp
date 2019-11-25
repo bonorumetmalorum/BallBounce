@@ -10,3 +10,8 @@ Camera::Camera()
 Camera::~Camera()
 {
 }
+
+void Camera::updatePosition()
+{
+
+}
