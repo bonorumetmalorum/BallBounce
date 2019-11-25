@@ -26,17 +26,17 @@ Plane::Plane()
 
 	if (!wall.texcoords.empty()) {
 		glGenBuffers(GL_ARRAY_BUFFER, &this->textureBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer); //access violation at this point
 		glBufferData(GL_ARRAY_BUFFER, this->wall.texcoords.size() * sizeof(float), this->wall.texcoords.data(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	if (!wall.normals.empty()) {
-		glGenBuffers(GL_ARRAY_BUFFER, &this->normalBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, this->normalBuffer);
-		glBufferData(GL_ARRAY_BUFFER, this->wall.normals.size() * sizeof(float), this->wall.normals.data(), GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
+	//if (!wall.normals.empty()) {
+	//	glGenBuffers(GL_ARRAY_BUFFER, &this->normalBuffer);
+	//	glBindBuffer(GL_ARRAY_BUFFER, this->normalBuffer);
+	//	glBufferData(GL_ARRAY_BUFFER, this->wall.normals.size() * sizeof(float), this->wall.normals.data(), GL_STATIC_DRAW);
+	//	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//}
 
 	glGenVertexArrays(1, &this->vao);
 	
@@ -81,4 +81,7 @@ Plane::~Plane()
 
 void Plane::draw()
 {
+	glBindVertexArray(this->vao);
+	glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
+	glDrawElements(GL_TRIANGLES, 1, GL_UNSIGNED_INT, 0);
 }
