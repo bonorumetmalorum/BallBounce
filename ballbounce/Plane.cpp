@@ -15,20 +15,25 @@ Plane::Plane()
 		glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
 		glBufferData(GL_ARRAY_BUFFER, wall.vertices.size() * sizeof(float), this->wall.vertices.data(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
-
-	if (!shapes[0].mesh.indices.empty()) {
-		glGenBuffers(1, &this->indexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->indexBuffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->shapes[0].mesh.indices.size() * sizeof(unsigned int), this->shapes[0].mesh.indices.data(), GL_STATIC_DRAW);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		std::cout << wall.vertices.size() << std::endl;
 	}
 
 	if (!wall.texcoords.empty()) {
-		glGenBuffers(GL_ARRAY_BUFFER, &this->textureBuffer);
+		glGenBuffers(1, &this->textureBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer); //access violation at this point
 		glBufferData(GL_ARRAY_BUFFER, this->wall.texcoords.size() * sizeof(float), this->wall.texcoords.data(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	if (!shapes[0].mesh.indices.empty()) {
+		std::vector<int> indices;
+		for (auto & shape : shapes[0].mesh.indices) {
+			indices.push_back(shape.vertex_index);
+		}
+		glGenBuffers(1, &this->indexBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->indexBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->shapes[0].mesh.indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 	//if (!wall.normals.empty()) {
@@ -82,6 +87,6 @@ Plane::~Plane()
 void Plane::draw()
 {
 	glBindVertexArray(this->vao);
-	glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
-	glDrawElements(GL_TRIANGLES, 1, GL_UNSIGNED_INT, 0);
+	//glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

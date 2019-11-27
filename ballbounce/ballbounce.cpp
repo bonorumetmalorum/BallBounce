@@ -11,6 +11,9 @@
 #include "Plane.h"
 #include <fstream>
 #include <sstream>
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 
 
 int createShaderProgram(const std::string & vs, const std::string & fs) {
@@ -126,7 +129,7 @@ int main(void)
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 
-	//Plane * p = new Plane();
+	Plane * p = new Plane();
 
 	//float positions[6] = {
 	//	-0.5f, -0.5f,
@@ -135,7 +138,7 @@ int main(void)
 	//};
 
 	unsigned int vbo, vao, ebo;
-	create_triangle(vbo, vao, ebo);
+	//create_triangle(vbo, vao, ebo);
 	//glGenVertexArrays(1, &vao);
 	//glBindVertexArray(vao);
 	//glGenBuffers(1, &buffer);
@@ -146,6 +149,8 @@ int main(void)
 	//glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 
 	int prog = createShaderProgram(vertexShader, fragmentShader);
+
+
 
 
 	/* Loop until the user closes the window */
@@ -162,17 +167,27 @@ int main(void)
 
 		ImGui::ShowDemoWindow(&show_demo_window);
 
-		//p->draw();
+		int display_w, display_h;
+		glfwGetFramebufferSize(window, &display_w, &display_h);
+
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+		glm::mat4 view = glm::mat4(1.0f);
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+		glm::mat4 projection;
+		projection = glm::perspective(glm::radians(45.0f), float(display_w) / float(display_h), 0.1f, 100.0f);
 
 		//render our geometries
 		glUseProgram(prog);
-		glBindVertexArray(vao);
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+		//glBindVertexArray(vao);
+		//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+		//glBindVertexArray(0);
+		p->draw();
 
 		ImGui::Render();
-		int display_w, display_h;
-		glfwGetFramebufferSize(window, &display_w, &display_h);
+	
 		glViewport(0, 0, display_w, display_h);
 
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
