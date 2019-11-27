@@ -150,7 +150,7 @@ int main(void)
 
 	int prog = createShaderProgram(vertexShader, fragmentShader);
 
-
+	
 
 
 	/* Loop until the user closes the window */
@@ -178,6 +178,10 @@ int main(void)
 
 		glm::mat4 projection;
 		projection = glm::perspective(glm::radians(45.0f), float(display_w) / float(display_h), 0.1f, 100.0f);
+
+		glUniformMatrix4fv(glGetUniformLocation(prog, "model"), 1, GL_FALSE, &model[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(prog, "view"), 1, GL_FALSE, &view[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(prog, "projection"), 1, GL_FALSE, &projection[0][0]);
 
 		//render our geometries
 		glUseProgram(prog);

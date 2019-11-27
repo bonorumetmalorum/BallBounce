@@ -4,6 +4,7 @@
 
 RenderManager::RenderManager()
 {
+	//init glfw
 	if (!glfwInit())
 		throw "error";
 
@@ -18,7 +19,7 @@ RenderManager::RenderManager()
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
-
+	//init glew openGL functions
 	if (glewInit() != GLEW_OK)
 		std::cout << "error" << std::endl;
 
@@ -60,8 +61,20 @@ RenderManager::~RenderManager()
 {
 }
 
-void RenderManager::loadAssets()
+void RenderManager::pollInput()
 {
-	std::string ball = "./assets/ball.obj";
-	std::string wall = "./assets/wall.obj";
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE))
+		playing = false;
+	if (glfwGetKey(window, GLFW_KEY_W))
+		//move camera forward in direction it is facing
+		cam.moveForward(mvmtAmt);
+	if (glfwGetKey(window, GLFW_KEY_S))
+		//move camera backwards in direction it is facing
+		cam.moveBack(mvmtAmt);
+	if (glfwGetKey(window, GLFW_KEY_A))
+		//move camera left
+		cam.moveLeft(mvmtAmt);
+	if(glfwGetKey(window, GLFW_KEY_D)
+		//move camera right
+		cam.moveRight(mvmtAmt);
 }
