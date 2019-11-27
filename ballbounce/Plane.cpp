@@ -88,5 +88,5 @@ void Plane::draw()
 {
 	glBindVertexArray(this->vao);
 	//glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, shapes[0].mesh.indices.size(), GL_UNSIGNED_INT, 0);
 }
