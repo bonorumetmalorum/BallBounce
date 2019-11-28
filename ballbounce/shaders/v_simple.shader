@@ -7,14 +7,10 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
-uniform mat4 translation;
-//uniform mat4 rotation;
-uniform mat4 scale;
 
 
 void main()
 {
-	vec4 modified = translation * scale * vec4(aPos, 1.0);
-	gl_Position = projection * view * model * modified; // see how we directly give a vec3 to vec4's constructor
+	gl_Position = projection * view * model * vec4(aPos, 1.0); // see how we directly give a vec3 to vec4's constructor
 	vertexColor = vec4(0.5, 0.0, 0.0, 1.0); // set the output variable to a dark-red color
 }

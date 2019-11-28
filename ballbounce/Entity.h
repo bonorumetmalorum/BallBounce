@@ -13,8 +13,9 @@ public:
 
 private:
 	glm::vec3 position;
-	glm::mat4x4 translation;
-	glm::mat4x4 scale;
+	glm::vec3 translation;
+	glm::vec3 scale;
+	float angle;
 };
 
 /*

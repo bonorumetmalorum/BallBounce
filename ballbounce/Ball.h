@@ -26,6 +26,7 @@ private:
 	GLuint normalBuffer;
 	GLuint indexBuffer;
 	GLuint vao;
+	glm::mat4x4 model;
 
 };
 

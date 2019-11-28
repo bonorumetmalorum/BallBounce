@@ -8,19 +8,27 @@
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "Camera.h"
+#include <fstream>
+#include <sstream>
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
+
 class RenderManager
 {
 public:
-	RenderManager();
+	RenderManager(Camera * c);
 	bool play();
-	void draw();
+	void draw(Entity * e);
 	~RenderManager();
 
-	void pollInput();
+	void pollInput(float deltaTime);
+
+	GLFWwindow* getWindow();
 
 private:
-	Ball ball;
-	Plane wall;
+	//Ball ball;
+	//Plane wall;
 
 	GLFWwindow * window;
 
@@ -29,9 +37,13 @@ private:
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 	bool playing = true;
 
-	Camera cam;
+	int shaderProgram;
 
-	float deltaTime;
+	Camera * cam;
+
 	float lastFrameTime;
+	void readShaders(std::string & vert, std::string & frag);
+
+	void createShaderProgram(const std::string & vs, const std::string & fs);
 };
 

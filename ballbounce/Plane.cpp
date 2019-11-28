@@ -77,6 +77,8 @@ Plane::Plane()
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->indexBuffer);
 		glBindVertexArray(0);
 	}
+
+	model = glm::mat4(1.0);
 }
 
 

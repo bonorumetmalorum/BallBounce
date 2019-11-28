@@ -4,6 +4,8 @@
 #include "mat4x4.hpp"
 #include <GLFW/glfw3.h>
 #include "glm.hpp"
+#include "gtc/matrix_transform.hpp"
+#include "gtc/type_ptr.hpp""
 
 class Camera
 {
@@ -20,7 +22,16 @@ public:
 	
 	void moveRight(float amount);
 
-	void look(GLFWwindow * window, double xpos, double ypos);
+	void look(double xpos, double ypos);
+
+	glm::vec3 getPosition();
+	glm::vec3 getUp();
+	glm::vec3 getFront();
+
+	glm::mat4x4 getView();
+	glm::mat4x4 getProjection();
+	glm::mat4x4 getRotation();
+
 
 private:
 	glm::vec3 position;
@@ -28,9 +39,10 @@ private:
 	glm::vec3 up;
 	glm::mat4x4 view;
 	glm::mat4x4 rotation;
+	glm::mat4x4 projection;
 	float fov = 45.0f;
-	float movementSpeed = 2.0f;
-	float lookSpeed = 2.0f;
+	float movementSpeed = 2.5;
+	float lookSpeed = 0.1;
 	float yaw;
 	float pitch;
 	float lastxoff;

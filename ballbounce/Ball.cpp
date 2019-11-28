@@ -37,7 +37,7 @@ Ball::Ball()
 	}
 
 	//if (!wall.normals.empty()) {
-	//	glGenBuffers(GL_ARRAY_BUFFER, &this->normalBuffer);
+	//	glGenBuffers(1, &this->normalBuffer);
 	//	glBindBuffer(GL_ARRAY_BUFFER, this->normalBuffer);
 	//	glBufferData(GL_ARRAY_BUFFER, this->wall.normals.size() * sizeof(float), this->wall.normals.data(), GL_STATIC_DRAW);
 	//	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -77,6 +77,8 @@ Ball::Ball()
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->indexBuffer);
 		glBindVertexArray(0);
 	}
+
+	model = glm::mat4(1.0);
 }
 
 
