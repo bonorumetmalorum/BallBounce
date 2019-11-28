@@ -21,7 +21,6 @@ Camera::~Camera()
 void Camera::moveForward(float deltaTime)
 {
 	position += (movementSpeed * deltaTime) * front;
-	std::cout << position.x << " " << position.y << " " << position.z << std::endl;
 }
 
 void Camera::moveBack(float deltaTime)

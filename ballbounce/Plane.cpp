@@ -15,7 +15,6 @@ Plane::Plane()
 		glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
 		glBufferData(GL_ARRAY_BUFFER, wall.vertices.size() * sizeof(float), this->wall.vertices.data(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		std::cout << wall.vertices.size() << std::endl;
 	}
 
 	if (!wall.texcoords.empty()) {
@@ -57,7 +56,7 @@ Plane::Plane()
 	if (textureBuffer != 0) {
 		glBindVertexArray(this->vao);
 		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glEnableVertexAttribArray(1);
 		glBindVertexArray(0);
@@ -66,7 +65,7 @@ Plane::Plane()
 	if (normalBuffer != 0) {
 		glBindVertexArray(this->vao);
 		glBindBuffer(GL_ARRAY_BUFFER, this->normalBuffer);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glEnableVertexAttribArray(2);
 		glBindVertexArray(0);

@@ -15,7 +15,6 @@ Ball::Ball()
 		glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
 		glBufferData(GL_ARRAY_BUFFER, ball.vertices.size() * sizeof(float), this->ball.vertices.data(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		std::cout << ball.vertices.size() << std::endl;
 	}
 
 	if (!ball.texcoords.empty()) {
@@ -27,6 +26,7 @@ Ball::Ball()
 
 	if (!shapes[0].mesh.indices.empty()) {
 		std::vector<int> indices;
+		std::cout << shapes[0].mesh.indices.size() << std::endl;
 		for (auto & shape : shapes[0].mesh.indices) {
 			indices.push_back(shape.vertex_index);
 		}
@@ -57,7 +57,7 @@ Ball::Ball()
 	if (textureBuffer != 0) {
 		glBindVertexArray(this->vao);
 		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glEnableVertexAttribArray(1);
 		glBindVertexArray(0);
@@ -66,7 +66,7 @@ Ball::Ball()
 	if (normalBuffer != 0) {
 		glBindVertexArray(this->vao);
 		glBindBuffer(GL_ARRAY_BUFFER, this->normalBuffer);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glEnableVertexAttribArray(2);
 		glBindVertexArray(0);
@@ -90,5 +90,5 @@ void Ball::draw()
 {
 	glBindVertexArray(this->vao);
 	//glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
-	glDrawElements(GL_TRIANGLES, shapes[0].mesh.indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, shapes[0].mesh.num_face_vertices.size(), GL_UNSIGNED_INT, 0);
 }
