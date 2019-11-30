@@ -36,6 +36,10 @@ RenderManager::RenderManager(Camera * cam)
 	createShaderProgram(vert, frag);
 
 	this->cam = cam;
+
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+	glEnable(GL_DEPTH_TEST);
 }
 
 bool RenderManager::play() {
@@ -44,14 +48,18 @@ bool RenderManager::play() {
 
 void RenderManager::draw(Entity * e) {
 
-	ImGui::ShowDemoWindow(&show_demo_window);
 
 	int display_w, display_h;
 	glfwGetFramebufferSize(window, &display_w, &display_h);
 	//replace this with camera stuff----
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, 0.0f, -1.0f));
+	if (e->getType() == 1) {
+		model = glm::translate(model, e->getPosition());
+	}
+	else {
+		model = glm::translate(model, glm::vec3(0.0f, -10.0, -1.0f));
+	}
 	
 	glm::mat4 view = glm::lookAt(cam->getPosition(), cam->getPosition() + cam->getFront(), cam->getUp());
 
@@ -64,6 +72,9 @@ void RenderManager::draw(Entity * e) {
 
 	glUseProgram(shaderProgram);
 	//draw entity
+
+	glUniform1i(glGetUniformLocation(shaderProgram, "type"), e->getType());
+
 	e->draw();
 
 	//render imgui
@@ -73,7 +84,6 @@ void RenderManager::draw(Entity * e) {
 
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-	glfwSwapBuffers(window);
 }
 
 
@@ -100,6 +110,20 @@ void RenderManager::pollInput(float deltaTime)
 	if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		//move camera right
 		cam->moveRight(deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		cam->moveUp(deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
+		if (isInMenuMode) {
+			isInMenuMode = false;
+			cam->freeze();
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+		else {
+			isInMenuMode = true;
+			cam ->freeze();
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+	}
 }
 
 GLFWwindow* RenderManager::getWindow()

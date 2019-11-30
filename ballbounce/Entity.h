@@ -11,11 +11,19 @@ public:
 
 	virtual void draw() = 0;
 
+	int getType();
+
+	glm::vec3 getPosition();
+
 private:
+
+	float angle;
+
+protected:
 	glm::vec3 position;
 	glm::vec3 translation;
 	glm::vec3 scale;
-	float angle;
+	int typeVariable;
 };
 
 /*

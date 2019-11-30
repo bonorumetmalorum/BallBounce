@@ -22,7 +22,11 @@ public:
 	
 	void moveRight(float amount);
 
+	void moveUp(float deltaTime);
+
 	void look(double xpos, double ypos);
+
+	void freeze();
 
 	glm::vec3 getPosition();
 	glm::vec3 getUp();
@@ -47,5 +51,6 @@ private:
 	float pitch;
 	float lastxoff;
 	float lastyoff;
+	bool freezeRotation = false;
 };
 

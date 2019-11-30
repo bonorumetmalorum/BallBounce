@@ -18,7 +18,6 @@ private:
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
 	tinyobj::attrib_t wall;
-	std::string path = "./assets/wall.obj";
 	GLuint vertexBuffer;
 	GLuint textureBuffer;
 	GLuint normalBuffer;

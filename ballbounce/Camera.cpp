@@ -40,31 +40,47 @@ void Camera::moveRight(float deltaTime)
 	position += normalised * (movementSpeed * deltaTime);
 }
 
+void Camera::moveUp(float deltaTime) {
+	glm::vec3 normalised = glm::normalize(up);
+	position += normalised * (movementSpeed * deltaTime);
+}
+
 void Camera::look(double xpos, double ypos)
 {
+	if (!freezeRotation) {
+		float xoff = xpos * lookSpeed;
+		float yoff = ypos * lookSpeed;
 
-	float xoff = xpos * lookSpeed;
-	float yoff = ypos * lookSpeed;
+		lastxoff = xoff;
+		lastyoff = yoff;
 
-	lastxoff = xoff;
-	lastyoff = yoff;
+		yaw += xoff;
+		pitch += yoff;
 
-	yaw += xoff;
-	pitch += yoff;
+		if (pitch > 89.0) {
+			pitch = 89.0;
+		}
 
-	if (pitch > 89.0) {
-		pitch = 89.0;
+		if (pitch < -89.0) {
+			pitch = -89.0;
+		}
+
+
+		front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+		front.y = sin(glm::radians(pitch));
+		front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+		front = glm::normalize(front);
 	}
-	
-	if (pitch < -89.0) {
-		pitch = -89.0;
+}
+
+void Camera::freeze()
+{
+	if (freezeRotation) {
+		freezeRotation = false;
 	}
-
-
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front = glm::normalize(front);
+	else {
+		freezeRotation = true;
+	}
 }
 
 glm::vec3 Camera::getPosition()

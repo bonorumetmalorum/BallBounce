@@ -4,6 +4,7 @@
 
 Plane::Plane()
 {
+	typeVariable = 0;
 	std::string warn;
 	std::string err;
 	if (!tinyobj::LoadObj(&this->wall, &this->shapes, &this->materials, &warn, &err, "./assets/wall/wall.obj", "./assets/wall/")) {
