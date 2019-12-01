@@ -2,11 +2,9 @@
 
 
 
-PhysicsSystem::PhysicsSystem(RenderManager * r)
+PhysicsSystem::PhysicsSystem(std::vector<Entity *> & world)
 {
-	renderer = r;
-	b = new Ball();
-	w = new Plane();
+	physWorld = world;
 }
 
 
@@ -16,17 +14,10 @@ PhysicsSystem::~PhysicsSystem()
 
 void PhysicsSystem::update(float deltaTime)
 {
-	b->applyForce(g);
-	b->updatePosition(deltaTime);
-}
-
-void PhysicsSystem::draw()
-{
-	renderer->draw(b);
-	renderer->draw(w);
-}
-
-GLFWwindow * PhysicsSystem::getWindow()
-{
-	return renderer->getWindow();
+	for (Entity * e : physWorld) {
+		if (e->isKinematic()) {
+			e->applyForce(g);
+			e->updatePosition(deltaTime);
+		}
+	}
 }

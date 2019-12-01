@@ -1,9 +1,19 @@
 #pragma once
+#include "Entity.h"
+#include <vector>
 class CollisionSystem
 {
 public:
-	CollisionSystem();
+	CollisionSystem(std::vector<Entity*> & collisionWorld);
 	~CollisionSystem();
+	void addEntity(Entity * e);
+	void update();
+
+private:
+	std::vector<Entity*> collisionWorld;
+	bool collision(int entityIndex, glm::vec3 & impulse, glm::vec3 & displacement);
+	bool sphereSphereCollision();
+	bool spherePlaneCollision();
 };
 
 /**

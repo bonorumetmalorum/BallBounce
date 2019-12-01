@@ -2,9 +2,43 @@
 #include <iostream>
 
 
-Ball::Ball()
+Ball::Ball(glm::vec3 position)
 {
 	typeVariable = 1;
+	loadMesh();
+	this->position = position;
+	model = glm::mat4(1.0);
+	velocity = glm::vec3(0);
+	mass = 100;
+	kinematic = true;
+}
+
+Ball::~Ball()
+{
+}
+
+void Ball::applyForce(glm::vec3 force)
+{
+	this->force += force;
+}
+
+void Ball::updatePosition(float deltaTime)
+{
+	acceleration = force / mass;
+	velocity = velocity + (acceleration * deltaTime);
+	position += velocity;
+	//std::cout << position.x << " " << position.y << " " << position.z << std::endl;
+	acceleration = glm::vec3(0);
+	force = glm::vec3(0);
+}
+
+void Ball::draw()
+{
+	glBindVertexArray(this->vao);
+	glDrawElements(GL_TRIANGLES, 3 * shapes[0].mesh.num_face_vertices.size(), GL_UNSIGNED_INT, 0);
+}
+
+void Ball::loadMesh() {
 	std::string warn;
 	std::string err;
 	if (!tinyobj::LoadObj(&this->ball, &this->shapes, &this->materials, &warn, &err, "./assets/ball/ball.obj", "./assets/ball/")) {
@@ -20,7 +54,7 @@ Ball::Ball()
 
 	if (!ball.texcoords.empty()) {
 		glGenBuffers(1, &this->textureBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer); //access violation at this point
+		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer);
 		glBufferData(GL_ARRAY_BUFFER, this->ball.texcoords.size() * sizeof(float), this->ball.texcoords.data(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
@@ -78,35 +112,5 @@ Ball::Ball()
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->indexBuffer);
 		glBindVertexArray(0);
 	}
-
-	position = glm::vec3(0.0f, 0.0f, 1.0f);
-	model = glm::mat4(1.0);
-	velocity = glm::vec3(0);
 }
 
-
-Ball::~Ball()
-{
-}
-
-void Ball::applyForce(glm::vec3 force)
-{
-	this->force += force;
-}
-
-void Ball::updatePosition(float deltaTime)
-{
-	acceleration = force / mass;
-	velocity = velocity + (acceleration * deltaTime);
-	position += velocity;
-	std::cout << velocity.x << " " << velocity.y << " " << velocity.z << std::endl;
-	acceleration = glm::vec3(0);
-	force = glm::vec3(0);
-}
-
-void Ball::draw()
-{
-	glBindVertexArray(this->vao);
-	//glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
-	glDrawElements(GL_TRIANGLES, 3 * shapes[0].mesh.num_face_vertices.size(), GL_UNSIGNED_INT, 0);
-}

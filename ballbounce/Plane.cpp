@@ -2,7 +2,7 @@
 
 
 
-Plane::Plane()
+Plane::Plane(glm::vec3 position)
 {
 	typeVariable = 0;
 	std::string warn;
@@ -79,6 +79,7 @@ Plane::Plane()
 	}
 
 	model = glm::mat4(1.0);
+	position = glm::vec3(0.0, -10.0, 0);
 }
 
 
@@ -86,9 +87,13 @@ Plane::~Plane()
 {
 }
 
+
+
+
 void Plane::draw()
 {
 	glBindVertexArray(this->vao);
 	//glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
 	glDrawElements(GL_TRIANGLES, shapes[0].mesh.indices.size(), GL_UNSIGNED_INT, 0);
 }
+

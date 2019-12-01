@@ -35,7 +35,7 @@ int main(void)
 {
 	RenderManager renderer(&camera);
 
-	PhysicsSystem p(&renderer);
+	//PhysicsSystem p(&renderer);
 
 	//set call back function
 	glfwSetCursorPosCallback(renderer.getWindow(), mouse_input_callback);
@@ -67,8 +67,8 @@ int main(void)
 			
 		//renderer.draw(&b); //give the renderer an entity to draw, it will handle binding its VAO and Buffer data then calling gl draw
 		//renderer.draw(&p);
-		p.update(dT.delta);
-		p.draw();
+		//p.update(dT.delta);
+		//p.draw();
 
 		glfwSwapBuffers(renderer.getWindow());
 

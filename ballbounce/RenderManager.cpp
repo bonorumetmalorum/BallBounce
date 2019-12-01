@@ -54,12 +54,7 @@ void RenderManager::draw(Entity * e) {
 	//replace this with camera stuff----
 
 	glm::mat4 model = glm::mat4(1.0f);
-	if (e->getType() == 1) {
-		model = glm::translate(model, e->getPosition());
-	}
-	else {
-		model = glm::translate(model, glm::vec3(0.0f, -10.0, -1.0f));
-	}
+	model = glm::translate(model, e->getPosition());
 	
 	glm::mat4 view = glm::lookAt(cam->getPosition(), cam->getPosition() + cam->getFront(), cam->getUp());
 

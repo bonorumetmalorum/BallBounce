@@ -10,7 +10,7 @@ class Ball :
 	public Entity
 {
 public:
-	Ball();
+	Ball(glm::vec3 position);
 	~Ball();
 
 	void applyForce(glm::vec3 force);
@@ -20,6 +20,7 @@ public:
 	void draw();
 
 private:
+	void loadMesh();
 	float radius;
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;

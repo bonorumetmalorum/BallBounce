@@ -4,35 +4,20 @@
 #include "Ball.h"
 #include "Plane.h"
 #include "RenderManager.h"
+#include <memory>
 
 class PhysicsSystem
 {
 public:
-	PhysicsSystem(RenderManager * r);
+	PhysicsSystem(std::vector<Entity *> & world);
 	~PhysicsSystem();
 
-	//void pause();
-
-	void update(float deltaTime);
-
-	void draw();
-
-	//void step();
-
-	GLFWwindow * getWindow();
-	
+	void update(float deltaTime);	
 
 private:
-
-	const glm::vec3 g = glm::vec3(0, -0.0000980665, 0);
-
-	Ball * b;
-
-	Plane * w;
-
-	CollisionSystem * collisionWorld;
-
-	RenderManager * renderer;	
+	std::vector<Entity *> physWorld;
+	const glm::vec3 g = glm::vec3(0, -0.980665, 0);
+	const glm::vec3 wind = glm::vec3(0);
 };
 
 /**

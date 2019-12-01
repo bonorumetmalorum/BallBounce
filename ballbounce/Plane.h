@@ -10,10 +10,11 @@ class Plane :
 	public Entity
 {
 public:
-	Plane();
+	Plane(glm::vec3 position);
 	~Plane();
 
 	void draw();
+
 private:
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
@@ -24,5 +25,6 @@ private:
 	GLuint indexBuffer;
 	GLuint vao;
 	glm::mat4x4 model;
+	glm::vec3 normal;
 };
 

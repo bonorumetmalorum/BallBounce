@@ -15,15 +15,25 @@ public:
 
 	glm::vec3 getPosition();
 
+	virtual void applyForce(glm::vec3 force);
+	virtual void updatePosition(float deltaTime);
+
+	bool isKinematic();
+
+
 private:
 
 	float angle;
 
 protected:
 	glm::vec3 position;
-	glm::vec3 translation;
-	glm::vec3 scale;
+	float scale = 1.0;
+	glm::vec3 acceleration;
+	glm::vec3 velocity;
+	glm::vec3 force;
+	float mass = 1.0;
 	int typeVariable;
+	bool kinematic = false;
 };
 
 /*
