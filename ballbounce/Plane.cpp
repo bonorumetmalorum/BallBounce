@@ -2,9 +2,17 @@
 
 
 
-Plane::Plane(glm::vec3 position)
+Plane::Plane(glm::vec3 position, float scale)
 {
 	typeVariable = 0;
+	loadMesh();
+	model = glm::mat4(1.0);
+	position = glm::vec3(0.0, -10.0, 0);
+	this->scale = scale;
+}
+
+void Plane::loadMesh() 
+{
 	std::string warn;
 	std::string err;
 	if (!tinyobj::LoadObj(&this->wall, &this->shapes, &this->materials, &warn, &err, "./assets/wall/wall.obj", "./assets/wall/")) {
@@ -44,7 +52,7 @@ Plane::Plane(glm::vec3 position)
 	//}
 
 	glGenVertexArrays(1, &this->vao);
-	
+
 	if (vertexBuffer != 0) {
 		glBindVertexArray(this->vao);
 		glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
@@ -77,9 +85,6 @@ Plane::Plane(glm::vec3 position)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->indexBuffer);
 		glBindVertexArray(0);
 	}
-
-	model = glm::mat4(1.0);
-	position = glm::vec3(0.0, -10.0, 0);
 }
 
 

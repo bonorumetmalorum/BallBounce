@@ -34,12 +34,13 @@ bool CollisionSystem::collision(int entityIndex, glm::vec3 & impulse, glm::vec3 
 {
 	for (int i = 0; i < collisionWorld.size(); i++) {
 		if (collisionWorld[i]->getType() == 1) {//ball
-
+			return false;
 		}
 		else if (collisionWorld[i]->getType() == 0) { // wall
-
+			return false;
 		}
 	}
+	return false;
 }
 
 bool CollisionSystem::sphereSphereCollision()

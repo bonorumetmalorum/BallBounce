@@ -10,7 +10,7 @@ class Plane :
 	public Entity
 {
 public:
-	Plane(glm::vec3 position);
+	Plane(glm::vec3 position, float scale);
 	~Plane();
 
 	void draw();
@@ -26,5 +26,7 @@ private:
 	GLuint vao;
 	glm::mat4x4 model;
 	glm::vec3 normal;
+
+	void loadMesh();
 };
 

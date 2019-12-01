@@ -14,26 +14,26 @@ Simulator::~Simulator()
 {
 }
 
-void Simulator::addBall(glm::vec3 position)
+void Simulator::addBall(glm::vec3 position, float scale)
 {
-	world.push_back(new Ball(position));
+	world.push_back(new Ball(position, scale));
 }
 
-void Simulator::addWall(glm::vec3 position, float angle)
+void Simulator::addWall(glm::vec3 position, float scale)
 {
-	world.push_back(new Plane(position));
+	world.push_back(new Plane(position, scale));
 }
 
 void Simulator::draw()
 {
 	for (Entity * e : world) {
-		e->draw();
+		this->rm->draw(e);
 	}
 }
 
 void Simulator::update(float deltaTime)
 {
-	cs->update();
+	//cs->update();
 	ps->update(deltaTime);
 
 }

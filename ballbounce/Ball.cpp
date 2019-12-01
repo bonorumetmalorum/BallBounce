@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-Ball::Ball(glm::vec3 position)
+Ball::Ball(glm::vec3 position, float scale)
 {
 	typeVariable = 1;
 	loadMesh();
@@ -11,6 +11,7 @@ Ball::Ball(glm::vec3 position)
 	velocity = glm::vec3(0);
 	mass = 100;
 	kinematic = true;
+	this->scale = scale;
 }
 
 Ball::~Ball()

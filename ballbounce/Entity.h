@@ -20,6 +20,9 @@ public:
 
 	bool isKinematic();
 
+	void setScale(float scale);
+
+	float getScale();
 
 private:
 

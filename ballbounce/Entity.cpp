@@ -46,3 +46,13 @@ bool Entity::isKinematic()
 {
 	return kinematic;
 }
+
+void Entity::setScale(float scale)
+{
+	this->scale = scale;
+}
+
+float Entity::getScale()
+{
+	return scale;
+}

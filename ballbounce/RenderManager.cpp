@@ -55,6 +55,7 @@ void RenderManager::draw(Entity * e) {
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, e->getPosition());
+	model = glm::scale(model, glm::vec3(e->getScale()));
 	
 	glm::mat4 view = glm::lookAt(cam->getPosition(), cam->getPosition() + cam->getFront(), cam->getUp());
 

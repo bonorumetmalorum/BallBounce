@@ -16,6 +16,8 @@
 #include <gtc/type_ptr.hpp>
 #include "RenderManager.h"
 #include "PhysicsSystem.h"
+#include "Simulator.h"
+
 struct DeltaTime {
 	float currentFrame = 0.0f;
 	float lastFrame = 0.0f;
@@ -37,11 +39,16 @@ int main(void)
 
 	//PhysicsSystem p(&renderer);
 
+
 	//set call back function
 	glfwSetCursorPosCallback(renderer.getWindow(), mouse_input_callback);
 
 	//Ball b;
 	//Plane p;
+
+	Simulator * sim = new Simulator(&renderer);
+	sim->addBall(glm::vec3(0.0, 10.0, 0.0), 1.0); //add mass parameter
+	sim->addWall(glm::vec3(0.0, -100.0, 0.0), 200);
 
 	DeltaTime dT;
 
@@ -69,6 +76,8 @@ int main(void)
 		//renderer.draw(&p);
 		//p.update(dT.delta);
 		//p.draw();
+		sim->update(dT.delta);
+		sim->draw();
 
 		glfwSwapBuffers(renderer.getWindow());
 
