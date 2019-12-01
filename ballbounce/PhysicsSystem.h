@@ -9,13 +9,13 @@
 class PhysicsSystem
 {
 public:
-	PhysicsSystem(std::vector<Entity *> & world);
+	PhysicsSystem(std::vector<Entity *> *world);
 	~PhysicsSystem();
 
 	void update(float deltaTime);	
 
 private:
-	std::vector<Entity *> physWorld;
+	std::vector<Entity *> * physWorld;
 	const glm::vec3 g = glm::vec3(0, -0.980665, 0);
 	const glm::vec3 wind = glm::vec3(0);
 };
