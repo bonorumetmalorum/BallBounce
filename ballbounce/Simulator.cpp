@@ -5,7 +5,7 @@
 Simulator::Simulator(RenderManager * r)
 {
 	ps = new PhysicsSystem(&world);
-	cs = new CollisionSystem(world);
+	cs = new CollisionSystem(&world);
 	rm = r;
 }
 

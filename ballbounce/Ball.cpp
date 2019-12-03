@@ -39,6 +39,11 @@ void Ball::draw()
 	glDrawElements(GL_TRIANGLES, 3 * shapes[0].mesh.num_face_vertices.size(), GL_UNSIGNED_INT, 0);
 }
 
+float Ball::getRadius()
+{
+	return radius;
+}
+
 void Ball::loadMesh() {
 	std::string warn;
 	std::string err;

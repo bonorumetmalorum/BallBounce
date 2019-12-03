@@ -24,6 +24,8 @@ public:
 
 	float getScale();
 
+	void shiftPosition(glm::vec3 shiftAmount);
+
 private:
 
 	float angle;
@@ -32,7 +34,7 @@ protected:
 	glm::vec3 position;
 	float scale = 1.0;
 	glm::vec3 acceleration;
-	glm::vec3 velocity;
+	glm::vec3 velocity;	
 	glm::vec3 force;
 	float mass = 1.0;
 	int typeVariable;

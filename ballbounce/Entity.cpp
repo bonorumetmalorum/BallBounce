@@ -56,3 +56,8 @@ float Entity::getScale()
 {
 	return scale;
 }
+
+void Entity::shiftPosition(glm::vec3 shiftAmount)
+{
+	this->position += shiftAmount;
+}

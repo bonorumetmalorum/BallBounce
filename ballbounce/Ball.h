@@ -19,6 +19,8 @@ public:
 
 	void draw();
 
+	float getRadius();
+
 private:
 	void loadMesh();
 	float radius;

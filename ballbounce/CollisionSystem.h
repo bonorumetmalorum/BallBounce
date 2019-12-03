@@ -1,19 +1,21 @@
 #pragma once
 #include "Entity.h"
 #include <vector>
+#include "Ball.h"
+#include "Plane.h"
+
 class CollisionSystem
 {
 public:
-	CollisionSystem(std::vector<Entity*> & collisionWorld);
+	CollisionSystem(std::vector<Entity*> * collisionWorld);
 	~CollisionSystem();
-	void addEntity(Entity * e);
 	void update();
 
 private:
-	std::vector<Entity*> collisionWorld;
-	bool collision(int entityIndex, glm::vec3 & impulse, glm::vec3 & displacement);
-	bool sphereSphereCollision();
-	bool spherePlaneCollision();
+	std::vector<Entity*> * collisionWorld;
+	bool collision(int entityIndex, Entity * e, glm::vec3 & impulseOUT, glm::vec3 & displacementOUT);
+	bool sphereSphereCollision(glm::vec3 spherCentre, float radius, glm::vec3 sphereCentreOther, float radiusOther, glm::vec3 & displacement);
+	bool spherePlaneCollision(Ball * spherCentre, Plane * p, glm::vec3 & displacement);
 };
 
 /**

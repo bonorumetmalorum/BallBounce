@@ -102,3 +102,17 @@ void Plane::draw()
 	glDrawElements(GL_TRIANGLES, shapes[0].mesh.indices.size(), GL_UNSIGNED_INT, 0);
 }
 
+glm::vec3 Plane::getNormal()
+{
+	return normal;
+}
+
+glm::vec3 Plane::getVertex(int index)
+{
+	glm::vec3 vertex;
+	vertex.x = wall.vertices[index];
+	vertex.x = wall.vertices[index+1];
+	vertex.x = wall.vertices[index+2];
+	return vertex;
+}
+
