@@ -2,9 +2,11 @@
 
 
 
-bool RenderManager::isInMenuMode;
+bool RenderManager::isInMenuMode = false;
 
 Camera * RenderManager::cam;
+
+GLFWwindow * RenderManager::window;
 
 
 RenderManager::RenderManager(Camera * camera)
@@ -51,6 +53,10 @@ RenderManager::RenderManager(Camera * camera)
 	glfwSetKeyCallback(window, key_callback);
 }
 
+void RenderManager::drawMenus(GLFWwindow * window) {
+
+}
+
 bool RenderManager::play() {
 	return glfwWindowShouldClose(window);
 }
@@ -63,8 +69,8 @@ void RenderManager::draw(Entity * e) {
 	//replace this with camera stuff----
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, e->getPosition());
 	model = glm::scale(model, glm::vec3(e->getScale()));
+	model = glm::translate(model, e->getPosition());
 	
 	glm::mat4 view = glm::lookAt(cam->getPosition(), cam->getPosition() + cam->getFront(), cam->getUp());
 
@@ -81,15 +87,6 @@ void RenderManager::draw(Entity * e) {
 	glUniform1i(glGetUniformLocation(shaderProgram, "type"), e->getType());
 
 	e->draw();
-
-	//render imgui
-	ImGui::Render();
-
-	glViewport(0, 0, display_w, display_h);
-
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-
 }
 
 
@@ -118,25 +115,27 @@ void RenderManager::pollInput(float deltaTime)
 		cam->moveRight(deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		cam->moveUp(deltaTime);
-	//if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
-	//	if (isInMenuMode) {
-	//		isInMenuMode = false;
-	//		std::cout << "quitting menu mode" << std::endl;
-	//		cam->freeze();
-	//		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	//	}
-	//	else {
-	//		isInMenuMode = true;
-	//		std::cout << "entering menu mode" << std::endl;
-	//		cam ->freeze();
-	//		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	//	}
-	//}
 }
 
 GLFWwindow* RenderManager::getWindow()
 {
 	return window;
+}
+
+void RenderManager::switchInputMode()
+{
+	if (isInMenuMode) {
+		isInMenuMode = false;
+		std::cout << "quitting menu mode" << std::endl;
+		cam->freeze();
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+	else {
+		isInMenuMode = true;
+		std::cout << "entering menu mode" << std::endl;
+		cam->freeze();
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
 }
 
 void RenderManager::readShaders(std::string & vert, std::string & frag) {
@@ -183,17 +182,6 @@ void RenderManager::key_callback(GLFWwindow * window, int key, int scancode, int
 {
 	if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
 	{
-		if (isInMenuMode) {
-			isInMenuMode = false;
-			std::cout << "quitting menu mode" << std::endl;
-			cam->freeze();
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		}
-		else {
-			isInMenuMode = true;
-			std::cout << "entering menu mode" << std::endl;
-			cam->freeze();
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		}
+		switchInputMode();
 	}
 }

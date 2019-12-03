@@ -6,7 +6,7 @@ Camera::Camera()
 {
 	up = glm::vec3(0.0,1.0,0.0);
 	front = glm::vec3(0.0, 0.0, -1.0);
-	position = glm::vec3(0.0);
+	position = glm::vec3(0.0, 1.0, 0.0);
 	yaw = -90.0f;
 	pitch = 0.0f;
 	lastxoff = 0.0f;
@@ -77,11 +77,9 @@ void Camera::freeze()
 {
 	if (freezeRotation) {
 		freezeRotation = false;
-		std::cout << "unfreezing rotation" << std::endl;
 	}
 	else {
 		freezeRotation = true;
-		std::cout << "freezing rotation" << std::endl;
 	}
 }
 

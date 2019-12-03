@@ -26,6 +26,8 @@ public:
 
 	void shiftPosition(glm::vec3 shiftAmount);
 
+	void reset();
+
 private:
 
 	float angle;
@@ -39,6 +41,7 @@ protected:
 	float mass = 1.0;
 	int typeVariable;
 	bool kinematic = false;
+	glm::vec3 startPoistion;
 };
 
 /*

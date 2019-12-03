@@ -33,12 +33,18 @@ public:
 	void step();
 	void stop();
 
+	void menu();
+
+	void setup();
+
 private:
 	State state = State::SETUP;
 	std::vector<Entity*> world;
 	PhysicsSystem * ps;
 	CollisionSystem * cs;
 	RenderManager * rm;
+	glm::vec3 tmpPos;
+	float tmpScale;
 
 };
 

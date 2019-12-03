@@ -61,3 +61,8 @@ void Entity::shiftPosition(glm::vec3 shiftAmount)
 {
 	this->position += shiftAmount;
 }
+
+void Entity::reset()
+{
+	position = startPoistion;
+}

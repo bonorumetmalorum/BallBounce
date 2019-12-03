@@ -18,6 +18,7 @@ class RenderManager
 {
 public:
 	RenderManager(Camera * c);
+	void drawMenus(GLFWwindow * window);
 	bool play();
 	void draw(Entity * e);
 	~RenderManager();
@@ -26,11 +27,13 @@ public:
 
 	GLFWwindow* getWindow();
 
+	static void switchInputMode();
+
 private:
 	//Ball ball;
 	//Plane wall;
 
-	GLFWwindow * window;
+	static GLFWwindow * window;
 	static bool isInMenuMode;
 	bool show_demo_window = true;
 	bool show_another_window = false;

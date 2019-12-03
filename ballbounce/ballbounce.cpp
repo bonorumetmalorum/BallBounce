@@ -47,8 +47,7 @@ int main(void)
 	//Plane p;
 
 	Simulator * sim = new Simulator(&renderer);
-	sim->addBall(glm::vec3(0.0, 10.0, 0.0), 1.0); //add mass parameter
-	sim->addWall(glm::vec3(0.0, -100.0, 0.0), 200);
+	sim->addWall(glm::vec3(0.0, 10.0, 0.0), 200);
 
 	DeltaTime dT;
 
@@ -65,19 +64,11 @@ int main(void)
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-		bool show = true;
-		ImGui::ShowDemoWindow(&show);
 
-			
-		//renderer.draw(&b); //give the renderer an entity to draw, it will handle binding its VAO and Buffer data then calling gl draw
-		//renderer.draw(&p);
-		//p.update(dT.delta);
-		//p.draw();
+
 		sim->update(dT.delta);
 		sim->draw();
+		
 
 		glfwSwapBuffers(renderer.getWindow());
 
