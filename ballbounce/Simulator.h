@@ -23,7 +23,7 @@ public:
 
 
 
-	void addBall(glm::vec3 position, float scale);
+	void addBall(glm::vec3 position, float scale, float mass);
 	void addWall(glm::vec3 position, float angle);
 
 	void draw();
@@ -45,6 +45,7 @@ private:
 	RenderManager * rm;
 	glm::vec3 tmpPos;
 	float tmpScale;
+	float tmpMass;
 
 };
 

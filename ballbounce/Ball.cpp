@@ -2,17 +2,18 @@
 #include <iostream>
 
 
-Ball::Ball(glm::vec3 position, float scale)
+Ball::Ball(glm::vec3 position, float scale, float mass)
 {
 	typeVariable = 1;
 	loadMesh();
 	this->position = position;
 	model = glm::mat4(1.0);
 	velocity = glm::vec3(0);
-	mass = 100;
+	this->mass = mass;
 	radius = 1.5f;
 	kinematic = true;
 	this->scale = scale;
+	startPoistion = position;
 }
 
 Ball::~Ball()

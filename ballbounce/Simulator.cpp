@@ -16,9 +16,9 @@ Simulator::~Simulator()
 {
 }
 
-void Simulator::addBall(glm::vec3 position, float scale)
+void Simulator::addBall(glm::vec3 position, float scale, float mass)
 {
-	world.push_back(new Ball(position, scale));
+	world.push_back(new Ball(position, scale, mass));
 }
 
 void Simulator::addWall(glm::vec3 position, float scale)
@@ -74,17 +74,17 @@ void Simulator::menu()
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-	//bool show = true;
-	//ImGui::ShowDemoWindow(&show);
+
 
 	ImGui::Begin("Menu");
 
 	ImGui::InputFloat("x position", &tmpPos.x);
 	ImGui::InputFloat("y position", &tmpPos.y);
 	ImGui::InputFloat("z position", &tmpPos.z);
+	ImGui::InputFloat("mass", &tmpMass);
 	ImGui::SliderFloat("scale", &tmpScale, 1.0f, 10.0f);
 	if (ImGui::Button("Add")) {
-		addBall(tmpPos, tmpScale);
+		addBall(tmpPos, tmpScale, tmpMass);
 	}
 	if (ImGui::Button("Play")) {
 		play();

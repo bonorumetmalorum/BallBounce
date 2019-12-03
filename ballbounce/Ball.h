@@ -10,7 +10,7 @@ class Ball :
 	public Entity
 {
 public:
-	Ball(glm::vec3 position, float scale);
+	Ball(glm::vec3 position, float scale, float mass);
 	~Ball();
 
 	void applyForce(glm::vec3 force);
