@@ -33,7 +33,7 @@ void Simulator::draw()
 
 void Simulator::update(float deltaTime)
 {
-	//cs->update();
+	cs->update();
 	ps->update(deltaTime);
 
 }

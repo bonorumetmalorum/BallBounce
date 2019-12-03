@@ -20,8 +20,9 @@ void CollisionSystem::update()
 			glm::vec3 impulse = glm::vec3(0);
 			glm::vec3 displacement = glm::vec3(0);
 			if (collision(i, collisionWorld->at(i), impulse, displacement)) {
+				//std::cout << "displacement: " << displacement.x << " " << displacement.y << " " << displacement.z << std::endl;
 				collisionWorld->at(i)->shiftPosition(displacement);
-				collisionWorld->at(i)->applyForce(impulse);
+				//collisionWorld->at(i)->applyForce(impulse); we have to calculate impulse, which is not being done
 			}
 			else {
 				continue;
@@ -44,6 +45,7 @@ bool CollisionSystem::collision(int entityIndex, Entity * e, glm::vec3 & impulse
 			return sphereSphereCollision(b->getPosition(), b->getRadius(), bOther->getPosition(), bOther->getRadius(), displacementOUT);
 		}
 		else if (collisionWorld->at(i)->getType() == 0) { // wall
+			//std::cout << "sphere plane collision will be tested" << std::endl;
 			Ball * b = static_cast<Ball *>(e);
 			Plane * p = static_cast<Plane *>(collisionWorld->at(i));
 			return spherePlaneCollision(b, p, displacementOUT);

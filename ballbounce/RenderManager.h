@@ -31,7 +31,7 @@ private:
 	//Plane wall;
 
 	GLFWwindow * window;
-	bool isInMenuMode = false;
+	static bool isInMenuMode;
 	bool show_demo_window = true;
 	bool show_another_window = false;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
@@ -39,11 +39,14 @@ private:
 
 	int shaderProgram;
 
-	Camera * cam;
+	static Camera * cam;
 
 	float lastFrameTime;
 	void readShaders(std::string & vert, std::string & frag);
 
 	void createShaderProgram(const std::string & vs, const std::string & fs);
+
+	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 };
 

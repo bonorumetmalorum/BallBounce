@@ -10,6 +10,7 @@ Ball::Ball(glm::vec3 position, float scale)
 	model = glm::mat4(1.0);
 	velocity = glm::vec3(0);
 	mass = 100;
+	radius = 1.0f;
 	kinematic = true;
 	this->scale = scale;
 }

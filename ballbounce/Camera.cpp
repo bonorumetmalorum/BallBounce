@@ -77,9 +77,11 @@ void Camera::freeze()
 {
 	if (freezeRotation) {
 		freezeRotation = false;
+		std::cout << "unfreezing rotation" << std::endl;
 	}
 	else {
 		freezeRotation = true;
+		std::cout << "freezing rotation" << std::endl;
 	}
 }
 
