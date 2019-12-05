@@ -16,7 +16,9 @@ public:
 	glm::vec3 getPosition();
 
 	virtual void applyForce(glm::vec3 force);
-	virtual void updatePosition(float deltaTime);
+	virtual void updatePosition(float deltaTime, bool freeFall);
+
+	float getMass();
 
 	bool isKinematic();
 
@@ -28,6 +30,8 @@ public:
 
 	void reset();
 
+	void setAcceleration(glm::vec3 acc);
+
 private:
 
 	float angle;
@@ -38,7 +42,7 @@ protected:
 	glm::vec3 acceleration;
 	glm::vec3 velocity;	
 	glm::vec3 force;
-	float mass = 1.0;
+	float mass;
 	int typeVariable;
 	bool kinematic = false;
 	glm::vec3 startPoistion;

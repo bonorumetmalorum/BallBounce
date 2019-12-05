@@ -12,11 +12,11 @@ public:
 	PhysicsSystem(std::vector<Entity *> *world);
 	~PhysicsSystem();
 
-	void update(float deltaTime);	
+	void update(float deltaTime, bool freeFall);	
 
 private:
 	std::vector<Entity *> * physWorld;
-	const glm::vec3 g = glm::vec3(0, -0.980665, 0);
+	glm::vec3 g = glm::vec3(0, -9.80665, 0);
 	const glm::vec3 wind = glm::vec3(0);
 };
 

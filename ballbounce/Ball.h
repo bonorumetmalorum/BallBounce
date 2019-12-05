@@ -15,7 +15,7 @@ public:
 
 	void applyForce(glm::vec3 force);
 
-	void updatePosition(float deltatTime);
+	//void updatePosition(float deltatTime);
 
 	void draw();
 

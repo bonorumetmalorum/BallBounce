@@ -1,5 +1,5 @@
 #include "Entity.h"
-
+#include <iostream>
 
 
 Entity::Entity()
@@ -30,16 +30,22 @@ void Entity::applyForce(glm::vec3 force)
 }
 
 //TODO check and see if this can be delete default that way it doesnt need to be implemented in non kinematic obj
-void Entity::updatePosition(float deltaTime)
+void Entity::updatePosition(float deltaTime, bool freeFall)
 {
 	if (kinematic) {
-		acceleration = force / mass;
+		if (!freeFall) {
+			this->acceleration = this->force / this->mass;
+			std::cout << "calculating acceleration by mass" << std::endl;
+		}
 		velocity = velocity + (acceleration * deltaTime);
 		position += velocity;
-		//std::cout << position.x << " " << position.y << " " << position.z << std::endl;
 		acceleration = glm::vec3(0);
 		force = glm::vec3(0);
 	}
+}
+
+float Entity::getMass() {
+	return mass;
 }
 
 bool Entity::isKinematic()
@@ -65,4 +71,9 @@ void Entity::shiftPosition(glm::vec3 shiftAmount)
 void Entity::reset()
 {
 	position = startPoistion;
+}
+
+void Entity::setAcceleration(glm::vec3 acc)
+{
+	acceleration = acc;
 }

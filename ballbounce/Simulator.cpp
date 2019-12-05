@@ -46,7 +46,7 @@ void Simulator::update(float deltaTime)
 {
 	if (state == State::PLAY) {
 		cs->update();
-		ps->update(deltaTime);
+		ps->update(deltaTime, freeFall);
 	}
 }
 
@@ -83,6 +83,9 @@ void Simulator::menu()
 	ImGui::InputFloat("z position", &tmpPos.z);
 	ImGui::InputFloat("mass", &tmpMass);
 	ImGui::SliderFloat("scale", &tmpScale, 1.0f, 10.0f);
+
+	ImGui::Checkbox("free fall", &freeFall);
+
 	if (ImGui::Button("Add")) {
 		addBall(tmpPos, tmpScale, tmpMass);
 	}

@@ -30,7 +30,7 @@ public:
 	void update(float deltaTime);
 	void play();
 	void pause();
-	void step();
+	//void step();
 	void stop();
 
 	void menu();
@@ -46,6 +46,7 @@ private:
 	glm::vec3 tmpPos;
 	float tmpScale;
 	float tmpMass;
+	bool freeFall = false;
 
 };
 

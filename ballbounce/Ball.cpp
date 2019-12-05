@@ -25,15 +25,15 @@ void Ball::applyForce(glm::vec3 force)
 	this->force += force;
 }
 
-void Ball::updatePosition(float deltaTime)
-{
-	acceleration = force / mass;
-	velocity = velocity + (acceleration * deltaTime);
-	position += velocity;
-	//std::cout << position.x << " " << position.y << " " << position.z << std::endl;
-	acceleration = glm::vec3(0);
-	force = glm::vec3(0);
-}
+//void Ball::updatePosition(float deltaTime)
+//{
+//	acceleration = force / mass;
+//	velocity = velocity + (acceleration * deltaTime);
+//	position += velocity;
+//	//std::cout << position.x << " " << position.y << " " << position.z << std::endl;
+//	acceleration = glm::vec3(0);
+//	force = glm::vec3(0);
+//}
 
 void Ball::draw()
 {
