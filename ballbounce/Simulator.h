@@ -28,6 +28,7 @@ public:
 
 	void draw();
 	void update(float deltaTime);
+	void fixedUpdate();
 	void play();
 	void pause();
 	//void step();
@@ -37,6 +38,8 @@ public:
 
 	void setup();
 
+	float getTimeStep();
+
 private:
 	State state = State::SETUP;
 	std::vector<Entity*> world;
@@ -44,9 +47,10 @@ private:
 	CollisionSystem * cs;
 	RenderManager * rm;
 	glm::vec3 tmpPos;
-	float tmpScale;
+	float tmpScale = 1.0;
 	float tmpMass;
 	bool freeFall = false;
+	float timeStep = 0.01;
 
 };
 

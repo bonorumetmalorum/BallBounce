@@ -7,6 +7,10 @@ class Entity
 {
 public:
 	Entity();
+	Entity(glm::vec3 position,
+	float scale,
+	float mass,
+	int typeVariable);
 	~Entity();
 
 	virtual void draw() = 0;

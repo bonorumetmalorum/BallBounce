@@ -27,7 +27,7 @@ void Simulator::addWall(glm::vec3 position, float scale)
 }
 
 void Simulator::draw(){
-	std::cout << world.size() << std::endl;
+	//std::cout << world.size() << std::endl;
 	int display_w, display_h;
 	glfwGetFramebufferSize(rm->getWindow(), &display_w, &display_h);
 	menu();
@@ -47,6 +47,14 @@ void Simulator::update(float deltaTime)
 	if (state == State::PLAY) {
 		cs->update();
 		ps->update(deltaTime, freeFall);
+	}
+}
+
+void Simulator::fixedUpdate()
+{
+	if (state == State::PLAY) {
+		cs->update();
+		ps->update(this->timeStep, freeFall);
 	}
 }
 
@@ -100,6 +108,10 @@ void Simulator::menu()
 
 	}
 	ImGui::End();
+
+	ImGui::Begin("Time Frame Governing");
+	ImGui::SliderFloat("ms per frame", &timeStep, 0.01, 0.1);
+	ImGui::End();
 }
 
 void Simulator::setup() {
@@ -109,4 +121,9 @@ void Simulator::setup() {
 	else {
 		return;
 	}
+}
+
+float Simulator::getTimeStep()
+{
+	return timeStep;
 }

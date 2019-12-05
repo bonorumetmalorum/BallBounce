@@ -2,18 +2,12 @@
 #include <iostream>
 
 
-Ball::Ball(glm::vec3 position, float scale, float mass)
+Ball::Ball(glm::vec3 position, float scale, float mass) : Entity(position, scale, mass, 1)
 {
-	typeVariable = 1;
 	loadMesh();
-	this->position = position;
 	model = glm::mat4(1.0);
-	velocity = glm::vec3(0);
-	this->mass = mass;
 	radius = 1.5f;
 	kinematic = true;
-	this->scale = scale;
-	startPoistion = position;
 }
 
 Ball::~Ball()
@@ -25,15 +19,17 @@ void Ball::applyForce(glm::vec3 force)
 	this->force += force;
 }
 
-//void Ball::updatePosition(float deltaTime)
-//{
-//	acceleration = force / mass;
-//	velocity = velocity + (acceleration * deltaTime);
-//	position += velocity;
-//	//std::cout << position.x << " " << position.y << " " << position.z << std::endl;
-//	acceleration = glm::vec3(0);
-//	force = glm::vec3(0);
-//}
+void Ball::updatePosition(float deltaTime, bool freeFall)
+{
+	if (!freeFall) {
+		acceleration = force * mass;
+		//std::cout << "calculating acceleration by mass" << std::endl;
+	}
+	velocity = (acceleration * deltaTime);
+	position += velocity;
+	acceleration = glm::vec3(0);
+	force = glm::vec3(0);
+}
 
 void Ball::draw()
 {
@@ -70,7 +66,7 @@ void Ball::loadMesh() {
 
 	if (!shapes[0].mesh.indices.empty()) {
 		std::vector<int> indices;
-		std::cout << shapes[0].mesh.indices.size() << std::endl;
+		//std::cout << shapes[0].mesh.indices.size() << std::endl;
 		for (auto & shape : shapes[0].mesh.indices) {
 			indices.push_back(shape.vertex_index);
 		}

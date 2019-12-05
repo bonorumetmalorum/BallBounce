@@ -22,6 +22,7 @@ struct DeltaTime {
 	float currentFrame = 0.0f;
 	float lastFrame = 0.0f;
 	float delta;
+	float lag;
 };
 
 Camera camera;
@@ -47,9 +48,12 @@ int main(void)
 	//Plane p;
 
 	Simulator * sim = new Simulator(&renderer);
-	sim->addWall(glm::vec3(0.0, 10.0, 0.0), 200);
+	sim->addWall(glm::vec3(0.0, 0.0, 0.0), 200);
+	sim->addBall(glm::vec3(5, 10.0, 0.0), 1, 1);
+	sim->addBall(glm::vec3(0.0, 10.0, 0.0), 1, 1);
 
 	DeltaTime dT;
+	dT.lag = 0.0;
 
 	/* Loop until the user closes the window */
 	while (!renderer.play())
@@ -57,6 +61,7 @@ int main(void)
 		//delta time calculations
 		dT.currentFrame = glfwGetTime();
 		dT.delta = dT.currentFrame - dT.lastFrame;
+		dT.lag += dT.delta;
 		dT.lastFrame = dT.currentFrame;
 
 		//standard stuff
@@ -65,11 +70,13 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
+		while (dT.lag >= sim->getTimeStep()) {
+			sim->fixedUpdate();
+			dT.lag -= sim->getTimeStep();
+		}
 
-		sim->update(dT.delta);
 		sim->draw();
 		
-
 		glfwSwapBuffers(renderer.getWindow());
 
 		renderer.pollInput(dT.delta);

@@ -19,13 +19,14 @@ void CollisionSystem::update()
 		if (collisionWorld->at(i)->isKinematic()) {
 			glm::vec3 impulse = glm::vec3(0);
 			glm::vec3 displacement = glm::vec3(0);
+			
 			if (collision(i, collisionWorld->at(i), impulse, displacement)) {
 				//std::cout << "displacement: " << displacement.x << " " << displacement.y << " " << displacement.z << std::endl;
+				if (i == 2) {
+					std::cout << "collision for sphere 2" << std::endl;
+				}
 				collisionWorld->at(i)->shiftPosition(displacement);
 				//collisionWorld->at(i)->applyForce(impulse); we have to calculate impulse, which is not being done
-			}
-			else {
-				continue;
 			}
 		}
 	}
@@ -42,12 +43,12 @@ bool CollisionSystem::collision(int entityIndex, Entity * e, glm::vec3 & impulse
 		if (collisionWorld->at(i)->getType() == 1) {//ball
 			Ball * b = static_cast<Ball *>(e);
 			Ball * bOther = static_cast<Ball *>(collisionWorld->at(i));
-			return sphereSphereCollision(b->getPosition(), b->getRadius(), bOther->getPosition(), bOther->getRadius(), displacementOUT);
+			//return sphereSphereCollision(b->getPosition(), b->getRadius(), bOther->getPosition(), bOther->getRadius(), displacementOUT);
 		}
-		else if (collisionWorld->at(i)->getType() == 0) { // wall
+		if (collisionWorld->at(i)->getType() == 0) { // wall
 			//std::cout << "sphere plane collision will be tested" << std::endl;
-			Ball * b = static_cast<Ball *>(e);
-			Plane * p = static_cast<Plane *>(collisionWorld->at(i));
+			Ball * b = reinterpret_cast<Ball *>(e);
+			Plane * p = reinterpret_cast<Plane *>(collisionWorld->at(i));
 			return spherePlaneCollision(b, p, displacementOUT);
 		}
 	}
@@ -70,9 +71,12 @@ bool CollisionSystem::sphereSphereCollision(glm::vec3 spherCentre, float radius,
 
 bool CollisionSystem::spherePlaneCollision(Ball * s, Plane * p, glm::vec3 & displacement)
 {
-	glm::vec3 directionToPlane = p->getPosition() - s->getPosition();
-	float distanceFromPlane = glm::length(directionToPlane);
-	if (distanceFromPlane < s->getRadius()) {
+	glm::vec3 directionToPlane = s->getPosition() - p->getPosition();
+	float dotted = glm::dot(p->getNormal(), directionToPlane);
+	float distanceFromPlane = dotted;
+	//float distanceFromPlane = glm::length(directionToPlane);
+	if (dotted < s->getRadius()) {
+		std::cout << "collision" << std::endl;
 		float magnitudeOfDisplacement = s->getRadius() - distanceFromPlane;
 		glm::vec3 displacementDirection = p->getNormal();
 		displacement = displacementDirection * magnitudeOfDisplacement;

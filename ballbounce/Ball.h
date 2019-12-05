@@ -15,8 +15,8 @@ public:
 
 	void applyForce(glm::vec3 force);
 
-	//void updatePosition(float deltatTime);
-
+	void updatePosition(float deltatTime, bool freeFall) override;
+	
 	void draw();
 
 	float getRadius();
@@ -34,10 +34,6 @@ private:
 	GLuint indexBuffer;
 	GLuint vao;
 	glm::mat4x4 model;
-
-	glm::vec3 force;
-	glm::vec3 acceleration;
-	glm::vec3 velocity;
 	float mass = 1.0;
 
 

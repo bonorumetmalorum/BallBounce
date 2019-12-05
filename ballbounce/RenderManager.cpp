@@ -75,7 +75,7 @@ void RenderManager::draw(Entity * e) {
 	glm::mat4 view = glm::lookAt(cam->getPosition(), cam->getPosition() + cam->getFront(), cam->getUp());
 
 	glm::mat4 projection;
-	projection = glm::perspective(glm::radians(45.0f), float(display_w) / float(display_h), 0.1f, 100.0f);
+	projection = glm::perspective(glm::radians(45.0f), float(display_w) / float(display_h), 0.1f, 1000.0f);
 	//-----
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, &view[0][0]);
@@ -126,13 +126,13 @@ void RenderManager::switchInputMode()
 {
 	if (isInMenuMode) {
 		isInMenuMode = false;
-		std::cout << "quitting menu mode" << std::endl;
+		//std::cout << "quitting menu mode" << std::endl;
 		cam->freeze();
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
 	else {
 		isInMenuMode = true;
-		std::cout << "entering menu mode" << std::endl;
+		//std::cout << "entering menu mode" << std::endl;
 		cam->freeze();
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}

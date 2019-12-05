@@ -18,11 +18,10 @@ void PhysicsSystem::update(float deltaTime, bool freeFall)
 	for (Entity * e : *physWorld) {
 		if (e->isKinematic()) {
 			if (!freeFall) {
-				std::cout << "applying forces" << std::endl;
-				e->applyForce(g/e->getMass());
+				e->applyForce(g*e->getMass());
 			}
 			else {
-				std::cout << "no forces applied, g = 9.81" << std::endl;
+				//std::cout << "no forces applied, g = 9.81" << std::endl;
 				e->setAcceleration(g);
 			}
 			e->updatePosition(deltaTime, freeFall);
