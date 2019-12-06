@@ -8,6 +8,8 @@ Ball::Ball(glm::vec3 position, float radius, float mass, float cors) : Entity(po
 	model = glm::mat4(1.0);
 	this->radius = radius;
 	kinematic = true;
+	this->cors = cors;
+	force = glm::vec3(0.0, mass * 9.81f, 0.0);
 }
 
 Ball::~Ball()
@@ -22,12 +24,12 @@ void Ball::applyForce(glm::vec3 force)
 void Ball::updatePosition(float deltaTime, bool freeFall)
 {
 	if (!freeFall) {
-		acceleration = force * mass;
+		acceleration = force / mass;
 		//std::cout << "calculating acceleration by mass" << std::endl;
 	}
 	velocity = (acceleration * deltaTime);
 	position += velocity;
-	acceleration = glm::vec3(0);
+	//acceleration = glm::vec3(0);
 	force = glm::vec3(0);
 }
 
@@ -41,6 +43,16 @@ void Ball::draw()
 float Ball::getRadius()
 {
 	return radius;
+}
+
+float Ball::getCors()
+{
+	return cors;
+}
+
+glm::vec3 Ball::getVelocity()
+{
+	return velocity;
 }
 
 void Ball::loadMesh() {

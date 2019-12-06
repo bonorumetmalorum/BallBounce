@@ -21,6 +21,10 @@ public:
 
 	float getRadius();
 
+	float getCors();
+
+	glm::vec3 getVelocity();
+
 private:
 	void loadMesh();
 	float radius;

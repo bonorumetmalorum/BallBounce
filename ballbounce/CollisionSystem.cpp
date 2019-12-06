@@ -23,7 +23,7 @@ void CollisionSystem::update()
 			if (collision(i, collisionWorld->at(i), impulse, displacement)) {
 				//std::cout << "displacement: " << displacement.x << " " << displacement.y << " " << displacement.z << std::endl;
 				collisionWorld->at(i)->shiftPosition(displacement);
-				//collisionWorld->at(i)->applyForce(impulse); we have to calculate impulse, which is not being done
+				collisionWorld->at(i)->applyForce(impulse); // we have to calculate impulse, which is not being done
 			}
 		}
 	}
@@ -46,6 +46,8 @@ bool CollisionSystem::collision(int entityIndex, Entity * e, glm::vec3 & impulse
 			//std::cout << "sphere plane collision will be tested" << std::endl;
 			Ball * b = reinterpret_cast<Ball *>(e);
 			Plane * p = reinterpret_cast<Plane *>(collisionWorld->at(i));
+			impulseOUT = b->getVelocity() * b->getCors() * -1.0f;
+			std::cout << impulseOUT.x << " " << impulseOUT.y << " " << impulseOUT.z << std::endl;
 			return spherePlaneCollision(b, p, displacementOUT);
 		}
 	}
@@ -73,7 +75,8 @@ bool CollisionSystem::spherePlaneCollision(Ball * s, Plane * p, glm::vec3 & disp
 	if (projection < s->getRadius()) {
 		float magnitudeOfDisplacement = s->getRadius() - projection;
 		glm::vec3 displacementDirection = p->getNormal();
-		displacement = displacementDirection * magnitudeOfDisplacement;
+		displacement = (displacementDirection * magnitudeOfDisplacement);
+		//displacement += 0.1;
 		return true;
 	}
 	return false;
