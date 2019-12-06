@@ -17,6 +17,7 @@
 #include "RenderManager.h"
 #include "PhysicsSystem.h"
 #include "Simulator.h"
+#include <thread>
 
 struct DeltaTime {
 	float currentFrame = 0.0f;
@@ -54,29 +55,37 @@ int main(void)
 
 	DeltaTime dT;
 	dT.lag = 0.0;
-
+	dT.lastFrame = 0.0;
+	long long numFrames = 0;
+	float FPS;
 	/* Loop until the user closes the window */
 	while (!renderer.play())
 	{
+		numFrames++;
 		//delta time calculations
 		dT.currentFrame = glfwGetTime();
 		dT.delta = dT.currentFrame - dT.lastFrame;
 		dT.lag += dT.delta;
 		dT.lastFrame = dT.currentFrame;
-
 		//standard stuff
 		glfwPollEvents();
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		//fixed update code
+		//while (dT.lag >= sim->getTimeStep()) {
+		//	sim->fixedUpdate();
+		//	dT.lag -= sim->getTimeStep();
+		//}
+		sim->update(dT.delta);
 
-		while (dT.lag >= sim->getTimeStep()) {
-			sim->fixedUpdate();
-			dT.lag -= sim->getTimeStep();
+		if (dT.lag < (1 / (float)sim->getFrameRate())) {
 		}
-
-		sim->draw();
+		else {
+			sim->draw();
+			dT.lag = 0;
+		}
 		
+
 		glfwSwapBuffers(renderer.getWindow());
 
 		renderer.pollInput(dT.delta);

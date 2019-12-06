@@ -69,8 +69,8 @@ void RenderManager::draw(Entity * e) {
 	//replace this with camera stuff----
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::scale(model, glm::vec3(e->getScale()));
 	model = glm::translate(model, e->getPosition());
+	model = glm::scale(model, glm::vec3(e->getScale()));
 	
 	glm::mat4 view = glm::lookAt(cam->getPosition(), cam->getPosition() + cam->getFront(), cam->getUp());
 

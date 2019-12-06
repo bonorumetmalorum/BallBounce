@@ -16,9 +16,9 @@ Simulator::~Simulator()
 {
 }
 
-void Simulator::addBall(glm::vec3 position, float scale, float mass)
+void Simulator::addBall(glm::vec3 position, float radius, float mass)
 {
-	world.push_back(new Ball(position, scale, mass));
+	world.push_back(new Ball(position, radius, mass));
 }
 
 void Simulator::addWall(glm::vec3 position, float scale)
@@ -28,6 +28,8 @@ void Simulator::addWall(glm::vec3 position, float scale)
 
 void Simulator::draw(){
 	//std::cout << world.size() << std::endl;
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	int display_w, display_h;
 	glfwGetFramebufferSize(rm->getWindow(), &display_w, &display_h);
 	menu();
@@ -44,6 +46,7 @@ void Simulator::draw(){
 
 void Simulator::update(float deltaTime)
 {
+	world[0]->setPosition(glm::vec3(0.0, floorPosition, 0.0)); //TODO figure out a way to make this better, store floor seperately??
 	if (state == State::PLAY) {
 		cs->update();
 		ps->update(deltaTime, freeFall);
@@ -86,11 +89,15 @@ void Simulator::menu()
 
 	ImGui::Begin("Menu");
 
+	ImGui::Text("Add Ball");
 	ImGui::InputFloat("x position", &tmpPos.x);
 	ImGui::InputFloat("y position", &tmpPos.y);
 	ImGui::InputFloat("z position", &tmpPos.z);
 	ImGui::InputFloat("mass", &tmpMass);
-	ImGui::SliderFloat("scale", &tmpScale, 1.0f, 10.0f);
+	ImGui::SliderFloat("radius", &tmpScale, 1.0f, 10.0f);
+
+	ImGui::Text("Floor Position");
+	ImGui::InputFloat("floor height", &floorPosition);
 
 	ImGui::Checkbox("free fall", &freeFall);
 
@@ -112,6 +119,10 @@ void Simulator::menu()
 	ImGui::Begin("Time Frame Governing");
 	ImGui::SliderFloat("ms per frame", &timeStep, 0.01, 0.1);
 	ImGui::End();
+
+	ImGui::Begin("Frame Rate");
+	ImGui::SliderInt("frame rate", &frameRate, 5, 1000);
+	ImGui::End();
 }
 
 void Simulator::setup() {
@@ -126,4 +137,9 @@ void Simulator::setup() {
 float Simulator::getTimeStep()
 {
 	return timeStep;
+}
+
+int Simulator::getFrameRate()
+{
+	return frameRate;
 }

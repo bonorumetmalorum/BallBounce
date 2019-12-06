@@ -74,6 +74,7 @@ float Entity::getScale()
 void Entity::shiftPosition(glm::vec3 shiftAmount)
 {
 	this->position += shiftAmount;
+	std::cout << position.x << " " << position.y << " " << position.z << std::endl;
 }
 
 void Entity::reset()
@@ -87,4 +88,9 @@ void Entity::reset()
 void Entity::setAcceleration(glm::vec3 acc)
 {
 	acceleration = acc;
+}
+
+void Entity::setPosition(glm::vec3 position)
+{
+	this->position = position;
 }

@@ -36,6 +36,8 @@ public:
 
 	void setAcceleration(glm::vec3 acc);
 
+	void setPosition(glm::vec3 position);
+
 private:
 
 	float angle;

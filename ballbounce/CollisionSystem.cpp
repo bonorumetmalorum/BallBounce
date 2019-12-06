@@ -22,9 +22,6 @@ void CollisionSystem::update()
 			
 			if (collision(i, collisionWorld->at(i), impulse, displacement)) {
 				//std::cout << "displacement: " << displacement.x << " " << displacement.y << " " << displacement.z << std::endl;
-				if (i == 2) {
-					std::cout << "collision for sphere 2" << std::endl;
-				}
 				collisionWorld->at(i)->shiftPosition(displacement);
 				//collisionWorld->at(i)->applyForce(impulse); we have to calculate impulse, which is not being done
 			}
@@ -72,12 +69,9 @@ bool CollisionSystem::sphereSphereCollision(glm::vec3 spherCentre, float radius,
 bool CollisionSystem::spherePlaneCollision(Ball * s, Plane * p, glm::vec3 & displacement)
 {
 	glm::vec3 directionToPlane = s->getPosition() - p->getPosition();
-	float dotted = glm::dot(p->getNormal(), directionToPlane);
-	float distanceFromPlane = dotted;
-	//float distanceFromPlane = glm::length(directionToPlane);
-	if (dotted < s->getRadius()) {
-		std::cout << "collision" << std::endl;
-		float magnitudeOfDisplacement = s->getRadius() - distanceFromPlane;
+	float projection = glm::dot(p->getNormal(), directionToPlane);
+	if (projection < s->getRadius()) {
+		float magnitudeOfDisplacement = s->getRadius() - projection;
 		glm::vec3 displacementDirection = p->getNormal();
 		displacement = displacementDirection * magnitudeOfDisplacement;
 		return true;

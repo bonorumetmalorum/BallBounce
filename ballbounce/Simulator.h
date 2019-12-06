@@ -23,7 +23,7 @@ public:
 
 
 
-	void addBall(glm::vec3 position, float scale, float mass);
+	void addBall(glm::vec3 position, float radius, float mass);
 	void addWall(glm::vec3 position, float angle);
 
 	void draw();
@@ -40,6 +40,8 @@ public:
 
 	float getTimeStep();
 
+	int getFrameRate();
+
 private:
 	State state = State::SETUP;
 	std::vector<Entity*> world;
@@ -51,7 +53,8 @@ private:
 	float tmpMass;
 	bool freeFall = false;
 	float timeStep = 0.01;
-
+	int frameRate = 60.0;
+	float floorPosition;
 };
 
 /**
