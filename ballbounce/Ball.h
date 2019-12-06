@@ -10,7 +10,7 @@ class Ball :
 	public Entity
 {
 public:
-	Ball(glm::vec3 position, float scale, float mass);
+	Ball(glm::vec3 position, float scale, float mass, float cors);
 	~Ball();
 
 	void applyForce(glm::vec3 force);
@@ -35,6 +35,7 @@ private:
 	GLuint vao;
 	glm::mat4x4 model;
 	float mass = 1.0;
+	float cors = 0.0;
 
 
 };

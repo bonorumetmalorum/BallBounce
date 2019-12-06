@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-Ball::Ball(glm::vec3 position, float radius, float mass) : Entity(position, radius, mass, 1)
+Ball::Ball(glm::vec3 position, float radius, float mass, float cors) : Entity(position, radius, mass, 1)
 {
 	loadMesh();
 	model = glm::mat4(1.0);

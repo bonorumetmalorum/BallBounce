@@ -16,9 +16,9 @@ Simulator::~Simulator()
 {
 }
 
-void Simulator::addBall(glm::vec3 position, float radius, float mass)
+void Simulator::addBall(glm::vec3 position, float radius, float mass, float cors)
 {
-	world.push_back(new Ball(position, radius, mass));
+	world.push_back(new Ball(position, radius, mass, cors));
 }
 
 void Simulator::addWall(glm::vec3 position, float scale)
@@ -97,6 +97,7 @@ void Simulator::menu()
 	ImGui::InputFloat("z position", &tmpPos.z);
 	ImGui::InputFloat("mass", &tmpMass);
 	ImGui::SliderFloat("radius", &tmpScale, 1.0f, 10.0f);
+	ImGui::SliderFloat("coefficient of restitution", &tmpCors, 0.0f, 1.0f);
 
 	ImGui::Text("Floor Position");
 	ImGui::InputFloat("floor height", &floorPosition);
@@ -104,7 +105,7 @@ void Simulator::menu()
 	ImGui::Checkbox("free fall", &freeFall);
 
 	if (ImGui::Button("Add")) {
-		addBall(tmpPos, tmpScale, tmpMass);
+		addBall(tmpPos, tmpScale, tmpMass, tmpCors);
 	}
 	if (ImGui::Button("Play")) {
 		play();

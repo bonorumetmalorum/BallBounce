@@ -23,7 +23,7 @@ public:
 
 
 
-	void addBall(glm::vec3 position, float radius, float mass);
+	void addBall(glm::vec3 position, float radius, float mass, float cors);
 	void addWall(glm::vec3 position, float angle);
 
 	void draw();
@@ -55,6 +55,7 @@ private:
 	float timeStep = 0.01;
 	int frameRate = 60.0;
 	float floorPosition;
+	float tmpCors;
 };
 
 /**

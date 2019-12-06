@@ -50,8 +50,8 @@ int main(void)
 
 	Simulator * sim = new Simulator(&renderer);
 	sim->addWall(glm::vec3(0.0, 0.0, 0.0), 200);
-	sim->addBall(glm::vec3(5, 10.0, 0.0), 1, 1);
-	sim->addBall(glm::vec3(0.0, 10.0, 0.0), 1, 1);
+	sim->addBall(glm::vec3(5, 10.0, 0.0), 1, 1, 0.0);
+	sim->addBall(glm::vec3(0.0, 10.0, 0.0), 1, 1, 0.0);
 
 	DeltaTime dT;
 	dT.lag = 0.0;
