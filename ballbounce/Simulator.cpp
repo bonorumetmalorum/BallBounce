@@ -42,6 +42,8 @@ void Simulator::draw(){
 	glViewport(0, 0, display_w, display_h);
 
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	glfwSwapBuffers(rm->getWindow());
 }
 
 void Simulator::update(float deltaTime)

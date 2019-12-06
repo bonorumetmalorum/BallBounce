@@ -85,9 +85,6 @@ int main(void)
 			dT.lag = 0;
 		}
 		
-
-		glfwSwapBuffers(renderer.getWindow());
-
 		renderer.pollInput(dT.delta);
 	}
 
