@@ -46,7 +46,9 @@ bool CollisionSystem::collision(int entityIndex, Entity * e, glm::vec3 & impulse
 			//std::cout << "sphere plane collision will be tested" << std::endl;
 			Ball * b = reinterpret_cast<Ball *>(e);
 			Plane * p = reinterpret_cast<Plane *>(collisionWorld->at(i));
-			impulseOUT = b->getVelocity() * (b->getCors() * -1.0f);
+			float vertVel = b->getVelocity().y * (b->getCors() * -1.0f);
+			//impulseOUT = b->getVelocity() * (b->getCors() * -1.0f);
+			impulseOUT = glm::vec3(0.0, vertVel, 0.0);
 			std::cout << impulseOUT.x << " " << impulseOUT.y << " " << impulseOUT.z << std::endl;
 			return spherePlaneCollision(b, p, displacementOUT);
 		}
