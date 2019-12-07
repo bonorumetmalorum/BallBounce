@@ -48,7 +48,7 @@ void Entity::updatePosition(float deltaTime, bool freeFall)
 		velocity = velocity + (acceleration * deltaTime);
 		position += velocity;
 		acceleration = glm::vec3(0);
-		force = glm::vec3(0);
+		//force = glm::vec3(0);
 	}
 }
 

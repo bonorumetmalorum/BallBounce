@@ -19,6 +19,7 @@ void PhysicsSystem::update(float deltaTime, bool freeFall)
 		if (e->isKinematic()) {
 			if (!freeFall) {
 				e->applyForce(g*e->getMass());
+				e->applyForce(wind);
 			}
 			else {
 				//std::cout << "no forces applied, g = 9.81" << std::endl;
@@ -27,4 +28,9 @@ void PhysicsSystem::update(float deltaTime, bool freeFall)
 			e->updatePosition(deltaTime, freeFall);
 		}
 	}
+}
+
+void PhysicsSystem::setWind(glm::vec3 wind)
+{
+	this->wind = wind;
 }

@@ -56,6 +56,7 @@ private:
 	int frameRate = 60.0;
 	float floorPosition;
 	float tmpCors;
+	glm::vec3 wind;
 };
 
 /**

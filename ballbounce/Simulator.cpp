@@ -49,6 +49,7 @@ void Simulator::draw(){
 void Simulator::update(float deltaTime)
 {
 	world[0]->setPosition(glm::vec3(0.0, floorPosition, 0.0)); //TODO figure out a way to make this better, store floor seperately??
+	ps->setWind(wind);
 	if (state == State::PLAY) {
 		cs->update();
 		ps->update(deltaTime, freeFall);
@@ -125,6 +126,12 @@ void Simulator::menu()
 
 	ImGui::Begin("Frame Rate");
 	ImGui::SliderInt("frame rate", &frameRate, 5, 1000);
+	ImGui::End();
+
+	ImGui::Begin("Wind Resistance");
+	ImGui::InputFloat("x amount", &wind.x);
+	ImGui::InputFloat("y amount", &wind.y);
+	ImGui::InputFloat("z amount", &wind.z);
 	ImGui::End();
 }
 

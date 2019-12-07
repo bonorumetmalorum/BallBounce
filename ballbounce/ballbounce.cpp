@@ -56,12 +56,12 @@ int main(void)
 	DeltaTime dT;
 	dT.lag = 0.0;
 	dT.lastFrame = 0.0;
-	long long numFrames = 0;
+	//long long numFrames = 0;
 	float FPS;
 	/* Loop until the user closes the window */
 	while (!renderer.play())
 	{
-		numFrames++;
+		//numFrames++;
 		//delta time calculations
 		dT.currentFrame = glfwGetTime();
 		dT.delta = dT.currentFrame - dT.lastFrame;
