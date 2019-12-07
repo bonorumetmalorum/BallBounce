@@ -94,3 +94,10 @@ void Entity::setPosition(glm::vec3 position)
 {
 	this->position = position;
 }
+
+void Entity::updateVelocity(glm::vec3 velocity)
+{
+	if (kinematic) {
+		this->velocity = velocity;
+	}
+}

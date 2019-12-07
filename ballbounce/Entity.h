@@ -38,6 +38,8 @@ public:
 
 	void setPosition(glm::vec3 position);
 
+	void updateVelocity(glm::vec3 velocity);
+
 private:
 
 	float angle;

@@ -27,9 +27,9 @@ void Ball::updatePosition(float deltaTime, bool freeFall)
 		acceleration = force / mass;
 		//std::cout << "calculating acceleration by mass" << std::endl;
 	}
-	velocity = (acceleration * deltaTime);
+	velocity += (acceleration * deltaTime);
 	position += velocity;
-	//acceleration = glm::vec3(0);
+	acceleration = glm::vec3(0);
 	force = glm::vec3(0);
 }
 
