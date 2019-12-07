@@ -29,6 +29,7 @@ struct DeltaTime {
 Camera camera;
 
 void mouse_input_callback(GLFWwindow * window, double xoff, double yoff);
+void scroll_input_callback(GLFWwindow * window, double xoff, double yoff);
 
 float prevX;
 float prevY;
@@ -39,14 +40,9 @@ int main(void)
 {
 	RenderManager renderer(&camera);
 
-	//PhysicsSystem p(&renderer);
-
-
 	//set call back function
 	glfwSetCursorPosCallback(renderer.getWindow(), mouse_input_callback);
-
-	//Ball b;
-	//Plane p;
+	glfwSetScrollCallback(renderer.getWindow(), scroll_input_callback);
 
 	Simulator * sim = new Simulator(&renderer);
 	sim->addWall(glm::vec3(0.0, 0.0, 0.0), 200);
@@ -106,4 +102,9 @@ static void mouse_input_callback(GLFWwindow * window, double xoff, double yoff)
 	prevY = yoff;
 
 	camera.look(x, y);
+}
+
+static void scroll_input_callback(GLFWwindow * window, double xoff, double yoff) {
+	std::cout << "scrolling " << yoff << std::endl;
+	camera.updateFov(yoff);
 }

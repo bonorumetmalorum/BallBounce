@@ -35,7 +35,9 @@ public:
 	glm::mat4x4 getView();
 	glm::mat4x4 getProjection();
 	glm::mat4x4 getRotation();
-
+	float getFov();
+	void updateFov(float amount);
+	
 
 private:
 	glm::vec3 position;
