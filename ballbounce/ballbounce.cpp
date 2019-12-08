@@ -30,8 +30,6 @@ Camera camera;
 
 void scroll_input_callback(GLFWwindow * window, double xoff, double yoff);
 
-bool isStart;
-
 int main(void)
 {
 	RenderManager renderer(&camera);

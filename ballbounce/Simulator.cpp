@@ -82,6 +82,10 @@ void Simulator::stop()
 	}
 }
 
+void Simulator::reset() {
+	world.clear();
+}
+
 void Simulator::menu()
 {
 
@@ -116,7 +120,9 @@ void Simulator::menu()
 	}
 	if (ImGui::Button("Stop")) {
 		stop();
-
+	}
+	if (ImGui::Button("Reset")) {
+		reset();
 	}
 	ImGui::End();
 

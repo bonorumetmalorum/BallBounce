@@ -42,6 +42,8 @@ public:
 
 	int getFrameRate();
 
+	void reset();
+
 private:
 	State state = State::SETUP;
 	std::vector<Entity*> world;

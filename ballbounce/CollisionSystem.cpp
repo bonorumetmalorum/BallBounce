@@ -29,8 +29,7 @@ void CollisionSystem::update()
 	}
 }
 
-//maybe return an array of collision items, these items will then need to be resolved in the calling method
-//this is good for now TODO
+
 bool CollisionSystem::collision(int entityIndex, Entity * e, glm::vec3 & impulseOUT, glm::vec3 & displacementOUT)
 {
 	for (int i = 0; i < collisionWorld->size(); i++) {
