@@ -25,7 +25,6 @@ void Ball::updatePosition(float deltaTime, bool freeFall)
 {
 	if (!freeFall) {
 		acceleration = force / mass;
-		//std::cout << "calculating acceleration by mass" << std::endl;
 	}
 	velocity += (acceleration * deltaTime);
 	position += velocity;
@@ -78,7 +77,6 @@ void Ball::loadMesh() {
 
 	if (!shapes[0].mesh.indices.empty()) {
 		std::vector<int> indices;
-		//std::cout << shapes[0].mesh.indices.size() << std::endl;
 		for (auto & shape : shapes[0].mesh.indices) {
 			indices.push_back(shape.vertex_index);
 		}

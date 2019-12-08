@@ -21,9 +21,8 @@ void CollisionSystem::update()
 			glm::vec3 displacement = glm::vec3(0);
 			
 			if (collision(i, collisionWorld->at(i), impulse, displacement)) {
-				//std::cout << "displacement: " << displacement.x << " " << displacement.y << " " << displacement.z << std::endl;
 				collisionWorld->at(i)->shiftPosition(displacement);
-				collisionWorld->at(i)->updateVelocity(impulse); // we have to calculate impulse, which is not being done
+				collisionWorld->at(i)->updateVelocity(impulse);
 			}
 		}
 	}
@@ -32,6 +31,7 @@ void CollisionSystem::update()
 
 bool CollisionSystem::collision(int entityIndex, Entity * e, glm::vec3 & impulseOUT, glm::vec3 & displacementOUT)
 {
+	//TODO
 	for (int i = 0; i < collisionWorld->size(); i++) {
 		if (i == entityIndex) {
 			continue;

@@ -23,7 +23,6 @@ void Simulator::addBall(glm::vec3 position, float radius, float mass, float cors
 }
 
 void Simulator::draw(){
-	//std::cout << world.size() << std::endl;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	int display_w, display_h;
@@ -101,14 +100,18 @@ void Simulator::menu()
 	ImGui::SliderFloat("radius", &tmpScale, 1.0f, 10.0f);
 	ImGui::SliderFloat("coefficient of restitution", &tmpCors, 0.0f, 1.0f);
 
-	ImGui::Text("Floor Position");
-	ImGui::InputFloat("floor height", &floorPosition);
-
-	ImGui::Checkbox("free fall", &freeFall);
 
 	if (ImGui::Button("Add")) {
 		addBall(tmpPos, tmpScale, tmpMass, tmpCors);
 	}
+
+	ImGui::Text("Physics mode");
+	ImGui::Checkbox("free fall", &freeFall);
+
+	ImGui::Text("Floor Position");
+	ImGui::InputFloat("floor height", &floorPosition);
+
+	ImGui::Text("Sim Controls");
 	if (ImGui::Button("Play")) {
 		play();
 	}
@@ -123,9 +126,10 @@ void Simulator::menu()
 	}
 	ImGui::End();
 
-	ImGui::Begin("Time Frame Governing");
-	ImGui::SliderFloat("ms per frame", &timeStep, 0.01, 0.1);
-	ImGui::End();
+	//TODO - remove or keep?
+	//ImGui::Begin("Time Frame Governing");
+	//ImGui::SliderFloat("ms per frame", &timeStep, 0.01, 0.1);
+	//ImGui::End();
 
 	ImGui::Begin("Frame Rate");
 	ImGui::SliderInt("frame rate", &frameRate, 5, 1000);

@@ -133,7 +133,6 @@ void Camera::updateFov(float amount)
 {
 	if (fov >= 1.0f) {//make sure fov does not go negative
 		fov += amount;
-		std::cout << "fov : " << fov << std::endl;
 	}
 	else {
 		fov = 1.0f;

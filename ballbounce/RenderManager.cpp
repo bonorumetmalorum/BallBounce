@@ -131,7 +131,6 @@ void RenderManager::switchInputMode()
 {
 	if (isInMenuMode) {
 		isInMenuMode = false;
-		//std::cout << "quitting menu mode" << std::endl;
 		cam->freeze();
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetCursorPos(window, lastxpos, lastypos);
@@ -139,7 +138,6 @@ void RenderManager::switchInputMode()
 	else {
 		isInMenuMode = true;
 		glfwGetCursorPos(window, &lastxpos, &lastypos);
-		//std::cout << "entering menu mode" << std::endl;
 		cam->freeze();
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
@@ -179,11 +177,6 @@ void RenderManager::createShaderProgram(const std::string & vs, const std::strin
 	glLinkProgram(shaderProgram);
 	glValidateProgram(shaderProgram);
 	std::cout << glGetError() << std::endl;
-	//clean up
-	//glDeleteShader(v);
-	//glDeleteShader(f);
-	//use program
-	//glUseProgram(prog);
 }
 
 void RenderManager::key_callback(GLFWwindow * window, int key, int scancode, int action, int mods)

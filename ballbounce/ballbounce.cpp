@@ -1,6 +1,3 @@
-// ballbounce.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include "pch.h"
 #include <iostream>
 #include <GL/glew.h>
@@ -78,6 +75,5 @@ int main(void)
 
 
 static void scroll_input_callback(GLFWwindow * window, double xoff, double yoff) {
-	std::cout << "scrolling " << yoff << std::endl;
 	camera.updateFov(yoff);
 }
