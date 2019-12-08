@@ -18,7 +18,6 @@ class RenderManager
 {
 public:
 	RenderManager(Camera * c);
-	void drawMenus(GLFWwindow * window);
 	bool play();
 	void draw(Entity * e);
 	~RenderManager();
@@ -39,6 +38,8 @@ private:
 	bool show_another_window = false;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 	bool playing = true;
+	static double lastxpos;
+	static double lastypos;
 
 	int shaderProgram;
 

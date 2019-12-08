@@ -48,11 +48,22 @@ void Camera::moveUp(float deltaTime) {
 void Camera::look(double xpos, double ypos)
 {
 	if (!freezeRotation) {
-		float xoff = xpos * lookSpeed;
-		float yoff = ypos * lookSpeed;
 
-		lastxoff = xoff;
-		lastyoff = yoff;
+		if (start) {
+			lastxoff = xpos; //maybe refactor this out of global scope
+			lastyoff = ypos; //this too
+			start = false;
+		}
+
+		float x = xpos - lastxoff;
+		float y = lastyoff - ypos;
+
+		lastxoff = xpos;
+		lastyoff = ypos;
+
+
+		float xoff = x * lookSpeed;
+		float yoff = y * lookSpeed;
 
 		yaw += xoff;
 		pitch += yoff;

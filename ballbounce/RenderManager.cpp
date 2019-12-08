@@ -8,6 +8,9 @@ Camera * RenderManager::cam;
 
 GLFWwindow * RenderManager::window;
 
+double RenderManager::lastxpos;
+double RenderManager::lastypos;
+
 
 RenderManager::RenderManager(Camera * camera)
 {
@@ -38,8 +41,6 @@ RenderManager::RenderManager(Camera * camera)
 	ImGui_ImplOpenGL3_Init("#version 130");
 	ImGui::StyleColorsDark();
 
-	//glfwSetCursorPosCallback(window, &cam.look);
-
 	std::string vert, frag;
 	readShaders(vert, frag);
 	createShaderProgram(vert, frag);
@@ -51,10 +52,6 @@ RenderManager::RenderManager(Camera * camera)
 	glEnable(GL_DEPTH_TEST);
 
 	glfwSetKeyCallback(window, key_callback);
-}
-
-void RenderManager::drawMenus(GLFWwindow * window) {
-
 }
 
 bool RenderManager::play() {
@@ -115,6 +112,14 @@ void RenderManager::pollInput(float deltaTime)
 		cam->moveRight(deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		cam->moveUp(deltaTime);
+
+	double mouseX, mouseY;
+	glfwGetCursorPos(window, &mouseX, &mouseY);
+	this->cam->look(mouseX, mouseY);
+	
+	//if (!isInMenuMode) {
+	//	glfwSetCursorPos(window, 0, 0);
+	//}
 }
 
 GLFWwindow* RenderManager::getWindow()
@@ -129,12 +134,15 @@ void RenderManager::switchInputMode()
 		//std::cout << "quitting menu mode" << std::endl;
 		cam->freeze();
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetCursorPos(window, lastxpos, lastypos);
 	}
 	else {
 		isInMenuMode = true;
+		glfwGetCursorPos(window, &lastxpos, &lastypos);
 		//std::cout << "entering menu mode" << std::endl;
 		cam->freeze();
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
 	}
 }
 

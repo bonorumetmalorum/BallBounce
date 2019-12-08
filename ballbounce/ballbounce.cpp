@@ -28,11 +28,7 @@ struct DeltaTime {
 
 Camera camera;
 
-void mouse_input_callback(GLFWwindow * window, double xoff, double yoff);
 void scroll_input_callback(GLFWwindow * window, double xoff, double yoff);
-
-float prevX;
-float prevY;
 
 bool isStart;
 
@@ -40,8 +36,6 @@ int main(void)
 {
 	RenderManager renderer(&camera);
 
-	//set call back function
-	glfwSetCursorPosCallback(renderer.getWindow(), mouse_input_callback);
 	glfwSetScrollCallback(renderer.getWindow(), scroll_input_callback);
 
 	Simulator * sim = new Simulator(&renderer);
@@ -52,12 +46,10 @@ int main(void)
 	DeltaTime dT;
 	dT.lag = 0.0;
 	dT.lastFrame = 0.0;
-	//long long numFrames = 0;
 	float FPS;
-	/* Loop until the user closes the window */
+
 	while (!renderer.play())
 	{
-		//numFrames++;
 		//delta time calculations
 		dT.currentFrame = glfwGetTime();
 		dT.delta = dT.currentFrame - dT.lastFrame;
@@ -86,23 +78,7 @@ int main(void)
 
 	return 0; 
 }
-//TODO
-static void mouse_input_callback(GLFWwindow * window, double xoff, double yoff)
-{
-	if (isStart) {
-		prevX = xoff; //maybe refactor this out of global scope
-		prevY = yoff; //this too
-		isStart = false;
-	}
 
-	float x = xoff - prevX;
-	float y = prevY - yoff;
-
-	prevX = xoff;
-	prevY = yoff;
-
-	camera.look(x, y);
-}
 
 static void scroll_input_callback(GLFWwindow * window, double xoff, double yoff) {
 	std::cout << "scrolling " << yoff << std::endl;

@@ -37,7 +37,6 @@ public:
 	glm::mat4x4 getRotation();
 	float getFov();
 	void updateFov(float amount);
-	
 
 private:
 	glm::vec3 position;
@@ -51,8 +50,9 @@ private:
 	float lookSpeed = 0.1;
 	float yaw;
 	float pitch;
-	float lastxoff;
-	float lastyoff;
+	float lastxoff = 0;
+	float lastyoff = 0;
 	bool freezeRotation = false;
+	bool start = true;
 };
 
