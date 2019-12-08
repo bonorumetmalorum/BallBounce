@@ -9,6 +9,7 @@ Simulator::Simulator(RenderManager * r)
 	rm = r;
 	state = State::SETUP;
 	rm->switchInputMode();
+	world.push_back(new Plane(glm::vec3(0), 200));
 }
 
 
@@ -19,11 +20,6 @@ Simulator::~Simulator()
 void Simulator::addBall(glm::vec3 position, float radius, float mass, float cors)
 {
 	world.push_back(new Ball(position, radius, mass, cors));
-}
-
-void Simulator::addWall(glm::vec3 position, float scale)
-{
-	world.push_back(new Plane(position, scale));
 }
 
 void Simulator::draw(){
@@ -48,7 +44,7 @@ void Simulator::draw(){
 
 void Simulator::update(float deltaTime)
 {
-	world[0]->setPosition(glm::vec3(0.0, floorPosition, 0.0)); //TODO figure out a way to make this better, store floor seperately??
+	world.at(0)->setPosition(glm::vec3(0, floorPosition, 0));
 	ps->setWind(wind);
 	if (state == State::PLAY) {
 		cs->update();
@@ -84,6 +80,7 @@ void Simulator::stop()
 
 void Simulator::reset() {
 	world.clear();
+	world.push_back(new Plane(glm::vec3(0), 200));
 }
 
 void Simulator::menu()

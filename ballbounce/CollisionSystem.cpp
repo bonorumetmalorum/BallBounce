@@ -36,35 +36,14 @@ bool CollisionSystem::collision(int entityIndex, Entity * e, glm::vec3 & impulse
 		if (i == entityIndex) {
 			continue;
 		}
-		if (collisionWorld->at(i)->getType() == 1) {//ball
-			Ball * b = static_cast<Ball *>(e);
-			Ball * bOther = static_cast<Ball *>(collisionWorld->at(i));
-			//return sphereSphereCollision(b->getPosition(), b->getRadius(), bOther->getPosition(), bOther->getRadius(), displacementOUT);
-		}
-		if (collisionWorld->at(i)->getType() == 0) { // wall
-			//std::cout << "sphere plane collision will be tested" << std::endl;
+		if (collisionWorld->at(i)->getType() == 0) {
 			Ball * b = reinterpret_cast<Ball *>(e);
-			Plane * p = reinterpret_cast<Plane *>(collisionWorld->at(i));
+			Plane * p = reinterpret_cast<Plane *>(collisionWorld->at(0));
 			float vertVel = b->getVelocity().y * (b->getCors() * -1.0f);
-			//impulseOUT = b->getVelocity() * (b->getCors() * -1.0f);
 			impulseOUT = glm::vec3(0.0, vertVel, 0.0);
 			std::cout << impulseOUT.x << " " << impulseOUT.y << " " << impulseOUT.z << std::endl;
 			return spherePlaneCollision(b, p, displacementOUT);
 		}
-	}
-	return false;
-}
-
-bool CollisionSystem::sphereSphereCollision(glm::vec3 spherCentre, float radius, glm::vec3 sphereCentreOther, float radiusOther, glm::vec3 & displacement)
-{
-	glm::vec3 c1ToC2 = sphereCentreOther - sphereCentreOther;
-	float radiusSum = radius + radiusOther;
-	float distanceBetweenCentres = glm::length(c1ToC2);
-	if ( distanceBetweenCentres < radiusSum) {
-		float magnitudeOfDisplacement = radius - distanceBetweenCentres;
-		glm::vec3 displacementDirection = glm::normalize(c1ToC2);
-		displacement = displacementDirection * magnitudeOfDisplacement;
-		return true;
 	}
 	return false;
 }

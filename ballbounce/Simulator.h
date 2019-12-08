@@ -24,7 +24,6 @@ public:
 
 
 	void addBall(glm::vec3 position, float radius, float mass, float cors);
-	void addWall(glm::vec3 position, float angle);
 
 	void draw();
 	void update(float deltaTime);

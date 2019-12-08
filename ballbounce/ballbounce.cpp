@@ -37,7 +37,6 @@ int main(void)
 	glfwSetScrollCallback(renderer.getWindow(), scroll_input_callback);
 
 	Simulator * sim = new Simulator(&renderer);
-	sim->addWall(glm::vec3(0.0, 0.0, 0.0), 200);
 	sim->addBall(glm::vec3(5, 10.0, 0.0), 1, 1, 1);
 	sim->addBall(glm::vec3(0.0, 10.0, 0.0), 1, 1, 1);
 
