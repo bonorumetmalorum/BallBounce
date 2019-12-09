@@ -16,34 +16,31 @@ CollisionSystem::~CollisionSystem()
 void CollisionSystem::update() 
 {
 	for (int i = 0; i < collisionWorld->size(); i++) {
-		if (collisionWorld->at(i)->isKinematic()) {
-			glm::vec3 impulse = glm::vec3(0);
-			glm::vec3 displacement = glm::vec3(0);
-			
-			if (collision(i, collisionWorld->at(i), impulse, displacement)) {
-				collisionWorld->at(i)->shiftPosition(displacement);
-				collisionWorld->at(i)->updateVelocity(impulse);
+		for (int j = 0; j < collisionWorld->size(); j++)
+		{
+			if (i == j)
+				continue;
+			if (collisionWorld->at(j)->isKinematic()) {
+				glm::vec3 impulse = glm::vec3(0);
+				glm::vec3 displacement = glm::vec3(0);
+				if (collision(collisionWorld->at(i), collisionWorld->at(j), impulse, displacement)) {
+					collisionWorld->at(j)->shiftPosition(displacement);
+					collisionWorld->at(j)->updateVelocity(impulse);
+				}
 			}
 		}
 	}
 }
 
 
-bool CollisionSystem::collision(int entityIndex, Entity * e, glm::vec3 & impulseOUT, glm::vec3 & displacementOUT)
+bool CollisionSystem::collision(Entity * e1, Entity * e2, glm::vec3 & impulseOUT, glm::vec3 & displacementOUT)
 {
-	//TODO
-	for (int i = 0; i < collisionWorld->size(); i++) {
-		if (i == entityIndex) {
-			continue;
-		}
-		if (collisionWorld->at(i)->getType() == 0) {
-			Ball * b = reinterpret_cast<Ball *>(e);
-			Plane * p = reinterpret_cast<Plane *>(collisionWorld->at(0));
-			float vertVel = b->getVelocity().y * (b->getCors() * -1.0f);
-			impulseOUT = glm::vec3(0.0, vertVel, 0.0);
-			std::cout << impulseOUT.x << " " << impulseOUT.y << " " << impulseOUT.z << std::endl;
-			return spherePlaneCollision(b, p, displacementOUT);
-		}
+	if (e1->getType() == 0) {
+		Ball * b = reinterpret_cast<Ball *>(e2);
+		Plane * p = reinterpret_cast<Plane *>(e1);
+		float vertVel = b->getVelocity().y * (b->getCors() * -1.0f);
+		impulseOUT = glm::vec3(0.0, vertVel, 0.0);
+		return spherePlaneCollision(b, p, displacementOUT);
 	}
 	return false;
 }

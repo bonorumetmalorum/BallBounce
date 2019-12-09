@@ -13,8 +13,7 @@ public:
 
 private:
 	std::vector<Entity*> * collisionWorld;
-	bool collision(int entityIndex, Entity * e, glm::vec3 & impulseOUT, glm::vec3 & displacementOUT);
-	bool sphereSphereCollision(glm::vec3 spherCentre, float radius, glm::vec3 sphereCentreOther, float radiusOther, glm::vec3 & displacement);
+	bool collision(Entity * e1, Entity * e2, glm::vec3 & impulseOUT, glm::vec3 & displacementOUT);
 	bool spherePlaneCollision(Ball * spherCentre, Plane * p, glm::vec3 & displacement);
 };
 
