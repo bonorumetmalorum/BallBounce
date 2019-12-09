@@ -85,13 +85,6 @@ void Ball::loadMesh() {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-	//if (!wall.normals.empty()) {
-	//	glGenBuffers(1, &this->normalBuffer);
-	//	glBindBuffer(GL_ARRAY_BUFFER, this->normalBuffer);
-	//	glBufferData(GL_ARRAY_BUFFER, this->wall.normals.size() * sizeof(float), this->wall.normals.data(), GL_STATIC_DRAW);
-	//	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//}
-
 	glGenVertexArrays(1, &this->vao);
 
 	if (vertexBuffer != 0) {
@@ -109,15 +102,6 @@ void Ball::loadMesh() {
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glEnableVertexAttribArray(1);
-		glBindVertexArray(0);
-	}
-
-	if (normalBuffer != 0) {
-		glBindVertexArray(this->vao);
-		glBindBuffer(GL_ARRAY_BUFFER, this->normalBuffer);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glEnableVertexAttribArray(2);
 		glBindVertexArray(0);
 	}
 

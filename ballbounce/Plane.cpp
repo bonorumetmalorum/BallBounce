@@ -24,7 +24,7 @@ void Plane::loadMesh()
 
 	if (!wall.texcoords.empty()) {
 		glGenBuffers(1, &this->textureBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer); //access violation at this point
+		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer);
 		glBufferData(GL_ARRAY_BUFFER, this->wall.texcoords.size() * sizeof(float), this->wall.texcoords.data(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
@@ -39,13 +39,6 @@ void Plane::loadMesh()
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->shapes[0].mesh.indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
-
-	//if (!wall.normals.empty()) {
-	//	glGenBuffers(GL_ARRAY_BUFFER, &this->normalBuffer);
-	//	glBindBuffer(GL_ARRAY_BUFFER, this->normalBuffer);
-	//	glBufferData(GL_ARRAY_BUFFER, this->wall.normals.size() * sizeof(float), this->wall.normals.data(), GL_STATIC_DRAW);
-	//	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//}
 
 	glGenVertexArrays(1, &this->vao);
 
@@ -64,15 +57,6 @@ void Plane::loadMesh()
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glEnableVertexAttribArray(1);
-		glBindVertexArray(0);
-	}
-
-	if (normalBuffer != 0) {
-		glBindVertexArray(this->vao);
-		glBindBuffer(GL_ARRAY_BUFFER, this->normalBuffer);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glEnableVertexAttribArray(2);
 		glBindVertexArray(0);
 	}
 

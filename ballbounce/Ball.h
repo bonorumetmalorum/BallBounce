@@ -35,7 +35,6 @@ private:
 	
 	GLuint vertexBuffer;
 	GLuint textureBuffer;
-	GLuint normalBuffer;
 	GLuint indexBuffer;
 	GLuint vao;
 	
