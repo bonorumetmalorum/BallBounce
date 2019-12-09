@@ -131,10 +131,12 @@ float Camera::getFov()
 
 void Camera::updateFov(float amount)
 {
-	if (fov >= 1.0f) {//make sure fov does not go negative
-		fov += amount;
-	}
-	else {
-		fov = 1.0f;
+	if (!freezeRotation) {
+		if (fov >= 1.0f) {//make sure fov does not go negative
+			fov += amount;
+		}
+		else {
+			fov = 1.0f;
+		}
 	}
 }
