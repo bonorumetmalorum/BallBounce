@@ -55,9 +55,3 @@ protected:
 	bool kinematic = false;
 	glm::vec3 startPoistion;
 };
-
-/*
-	this will keep track of the transformation matrices for this entity
-	will implement a draw method to allow for convenient rendering
-	will maintain its position
-*/

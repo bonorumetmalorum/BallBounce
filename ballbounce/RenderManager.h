@@ -29,8 +29,6 @@ public:
 	static void switchInputMode();
 
 private:
-	//Ball ball;
-	//Plane wall;
 
 	static GLFWwindow * window;
 	static bool isInMenuMode;
