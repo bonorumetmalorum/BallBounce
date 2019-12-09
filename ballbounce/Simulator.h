@@ -28,9 +28,9 @@ public:
 	void draw();
 	void update(float deltaTime);
 	void fixedUpdate();
+	
 	void play();
 	void pause();
-	//void step();
 	void stop();
 
 	void menu();
@@ -38,6 +38,8 @@ public:
 	void setup();
 
 	float getTimeStep();
+
+	bool getFixedUpdateEnabled();
 
 	int getFrameRate();
 
@@ -58,14 +60,6 @@ private:
 	float floorPosition;
 	float tmpCors;
 	glm::vec3 wind;
+	bool fixedUpdateEnabled = false;
 };
-
-/**
-	the simulator class must:
-		keep track of the number of entities in the scene
-		allow to add more entities
-		allow to step through the simulation, one step at a time
-		indefinitely loop through the simulation until exit
-
-*/
 

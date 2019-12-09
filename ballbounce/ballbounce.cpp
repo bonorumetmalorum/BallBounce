@@ -21,6 +21,7 @@ struct DeltaTime {
 	float lastFrame = 0.0f;
 	float delta;
 	float lag;
+	float timeAcc;
 };
 
 Camera camera;
@@ -40,6 +41,7 @@ int main(void)
 	DeltaTime dT;
 	dT.lag = 0.0;
 	dT.lastFrame = 0.0;
+	dT.timeAcc = 0;
 	float FPS;
 
 	while (!renderer.play())
@@ -48,23 +50,27 @@ int main(void)
 		dT.currentFrame = glfwGetTime();
 		dT.delta = dT.currentFrame - dT.lastFrame;
 		dT.lag += dT.delta;
+		dT.timeAcc += dT.delta;
 		dT.lastFrame = dT.currentFrame;
-		//standard stuff
+		
 		glfwPollEvents();
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
 
-		//fixed update code
-		//while (dT.lag >= sim->getTimeStep()) {
-		//	sim->fixedUpdate();
-		//	dT.lag -= sim->getTimeStep();
-		//}
-		sim->update(dT.delta);
+		if (sim->getFixedUpdateEnabled()) {
+			while (dT.lag >= sim->getTimeStep()) {
+				sim->fixedUpdate();
+				dT.lag -= sim->getTimeStep();
+			}
+		}
+		else {
+			sim->update(dT.delta);
+		}
 
-		if (dT.lag < (1 / (float)sim->getFrameRate())) {
+		if (dT.timeAcc < (1 / (float)sim->getFrameRate())) {
 		}
 		else {
 			sim->draw();
-			dT.lag = 0;
+			dT.timeAcc = 0;
 		}
 		
 		renderer.pollInput(dT.delta);

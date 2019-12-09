@@ -127,9 +127,10 @@ void Simulator::menu()
 	ImGui::End();
 
 	//TODO - remove or keep?
-	//ImGui::Begin("Time Frame Governing");
-	//ImGui::SliderFloat("ms per frame", &timeStep, 0.01, 0.1);
-	//ImGui::End();
+	ImGui::Begin("Fixed Update");
+	ImGui::SliderFloat("number of steps per frame", &timeStep, 0.01, 0.1);
+	ImGui::Checkbox("Enable/Disable", &fixedUpdateEnabled);
+	ImGui::End();
 
 	ImGui::Begin("Frame Rate");
 	ImGui::SliderInt("frame rate", &frameRate, 5, 1000);
@@ -154,6 +155,11 @@ void Simulator::setup() {
 float Simulator::getTimeStep()
 {
 	return timeStep;
+}
+
+bool Simulator::getFixedUpdateEnabled()
+{
+	return fixedUpdateEnabled;
 }
 
 int Simulator::getFrameRate()
