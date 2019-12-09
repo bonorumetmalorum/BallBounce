@@ -26,7 +26,6 @@ private:
 	tinyobj::attrib_t wall;
 	
 	GLuint vertexBuffer;
-	GLuint textureBuffer;
 	GLuint indexBuffer;
 	GLuint vao;
 	

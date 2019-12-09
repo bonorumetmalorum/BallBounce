@@ -22,13 +22,6 @@ void Plane::loadMesh()
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	if (!wall.texcoords.empty()) {
-		glGenBuffers(1, &this->textureBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer);
-		glBufferData(GL_ARRAY_BUFFER, this->wall.texcoords.size() * sizeof(float), this->wall.texcoords.data(), GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
-
 	if (!shapes[0].mesh.indices.empty()) {
 		std::vector<int> indices;
 		for (auto & shape : shapes[0].mesh.indices) {
@@ -48,15 +41,6 @@ void Plane::loadMesh()
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glEnableVertexAttribArray(0);
-		glBindVertexArray(0);
-	}
-
-	if (textureBuffer != 0) {
-		glBindVertexArray(this->vao);
-		glBindBuffer(GL_ARRAY_BUFFER, this->textureBuffer);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glEnableVertexAttribArray(1);
 		glBindVertexArray(0);
 	}
 

@@ -34,7 +34,6 @@ private:
 	tinyobj::attrib_t ball;
 	
 	GLuint vertexBuffer;
-	GLuint textureBuffer;
 	GLuint indexBuffer;
 	GLuint vao;
 	
