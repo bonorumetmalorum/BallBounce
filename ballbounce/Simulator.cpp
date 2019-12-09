@@ -53,6 +53,7 @@ void Simulator::update(float deltaTime)
 
 void Simulator::fixedUpdate()
 {
+	world.at(0)->setPosition(glm::vec3(0, floorPosition, 0));
 	if (state == State::PLAY) {
 		cs->update();
 		ps->update(this->timeStep, freeFall);
@@ -126,7 +127,6 @@ void Simulator::menu()
 	}
 	ImGui::End();
 
-	//TODO - remove or keep?
 	ImGui::Begin("Fixed Update");
 	ImGui::SliderFloat("number of steps per frame", &timeStep, 0.01, 0.1);
 	ImGui::Checkbox("Enable/Disable", &fixedUpdateEnabled);
