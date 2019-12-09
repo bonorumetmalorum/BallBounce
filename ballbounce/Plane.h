@@ -20,15 +20,17 @@ public:
 	glm::vec3 getVertex(int index);
 
 private:
+
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
 	tinyobj::attrib_t wall;
+	
 	GLuint vertexBuffer;
 	GLuint textureBuffer;
 	GLuint normalBuffer;
 	GLuint indexBuffer;
 	GLuint vao;
-	glm::mat4x4 model;
+	
 	glm::vec3 normal = glm::vec3(0.0,1.0,0.0);
 
 	void loadMesh();

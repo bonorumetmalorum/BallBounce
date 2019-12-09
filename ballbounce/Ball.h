@@ -28,16 +28,17 @@ public:
 private:
 	void loadMesh();
 	float radius;
+	
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
 	tinyobj::attrib_t ball;
-	std::string path = "./assets/ball.obj";
+	
 	GLuint vertexBuffer;
 	GLuint textureBuffer;
 	GLuint normalBuffer;
 	GLuint indexBuffer;
 	GLuint vao;
-	glm::mat4x4 model;
+	
 	float mass = 1.0;
 	float cors = 0.0;
 

@@ -5,7 +5,6 @@
 Plane::Plane(glm::vec3 position, float scale) : Entity(position, scale, 0.0, 0)
 {
 	loadMesh();
-	model = glm::mat4(1.0);
 }
 
 void Plane::loadMesh() 
