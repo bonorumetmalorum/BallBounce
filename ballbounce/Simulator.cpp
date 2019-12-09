@@ -31,7 +31,7 @@ void Simulator::draw(){
 	for (Entity * e : world) {
 		this->rm->draw(e);
 	}
-	//render imgui
+	
 	ImGui::Render();
 
 	glViewport(0, 0, display_w, display_h);
@@ -54,6 +54,7 @@ void Simulator::update(float deltaTime)
 void Simulator::fixedUpdate()
 {
 	world.at(0)->setPosition(glm::vec3(0, floorPosition, 0));
+	ps->setWind(wind);
 	if (state == State::PLAY) {
 		cs->update();
 		ps->update(this->timeStep, freeFall);
