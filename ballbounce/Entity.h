@@ -48,7 +48,7 @@ protected:
 	glm::vec3 position;
 	float scale = 1.0;
 	glm::vec3 acceleration;
-	glm::vec3 velocity;	
+	glm::vec3 velocity = glm::vec3(0);	
 	glm::vec3 force;
 	float mass;
 	int typeVariable;
