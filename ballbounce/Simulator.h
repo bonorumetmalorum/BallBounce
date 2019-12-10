@@ -45,12 +45,15 @@ public:
 
 	void reset();
 
+	static void play_pause_input_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
+
 private:
-	State state = State::SETUP;
+	static State state;
 	std::vector<Entity*> world;
 	PhysicsSystem * ps;
 	CollisionSystem * cs;
-	RenderManager * rm;
+	static RenderManager * rm;
 	glm::vec3 tmpPos;
 	float tmpScale = 1.0;
 	float tmpMass;

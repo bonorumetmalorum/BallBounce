@@ -2,6 +2,9 @@
 
 
 
+RenderManager * Simulator::rm;
+State Simulator::state = State::SETUP;
+
 Simulator::Simulator(RenderManager * r)
 {
 	ps = new PhysicsSystem(&world);
@@ -10,6 +13,23 @@ Simulator::Simulator(RenderManager * r)
 	state = State::SETUP;
 	rm->switchInputMode();
 	world.push_back(new Plane(glm::vec3(0), 200));
+	glfwSetKeyCallback(rm->getWindow(), play_pause_input_callback);
+}
+
+void Simulator::play_pause_input_callback(GLFWwindow * window, int key, int scancode, int action, int mods) {
+	if (key == GLFW_KEY_PERIOD && action == GLFW_PRESS) {
+		if (state == PLAY) {
+			state = PAUSE;
+		}
+		else {
+			state = PLAY;
+		}
+		std::cout << "hello" << std::endl;
+	}
+	if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
+	{
+		rm->switchInputMode();
+	}
 }
 
 

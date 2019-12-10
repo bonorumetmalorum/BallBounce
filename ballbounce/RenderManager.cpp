@@ -101,7 +101,7 @@ void RenderManager::pollInput(float deltaTime)
 		cam->moveRight(deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		cam->moveUp(deltaTime);
-
+		
 	double mouseX, mouseY;
 	glfwGetCursorPos(window, &mouseX, &mouseY);
 	this->cam->look(mouseX, mouseY);
@@ -166,8 +166,5 @@ void RenderManager::createShaderProgram(const std::string & vs, const std::strin
 
 void RenderManager::key_callback(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
-	{
-		switchInputMode();
-	}
+
 }
