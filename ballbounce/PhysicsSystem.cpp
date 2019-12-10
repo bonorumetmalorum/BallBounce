@@ -5,7 +5,7 @@
 PhysicsSystem::PhysicsSystem(std::vector<Entity *> * world)
 {
 	physWorld = world;
-	g = glm::vec3(0, -0.80665, 0);
+	g = glm::vec3(0, -9.80665, 0);
 
 }
 

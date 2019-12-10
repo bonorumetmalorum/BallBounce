@@ -107,7 +107,7 @@ bool CollisionSystem::sphereSphereCollision(Ball * a, Ball * b, glm::vec3 & disp
 	float radiusSum = a->getRadius() + b->getRadius();
 	float distanceBetweenCentres = glm::length(c1ToC2);
 	if (distanceBetweenCentres < radiusSum) {
-		float magnitudeOfDisplacement = a->getRadius() - distanceBetweenCentres;
+		float magnitudeOfDisplacement = radiusSum - distanceBetweenCentres;
 		glm::vec3 displacementDirection = glm::normalize(c1ToC2);
 		displacement = displacementDirection * magnitudeOfDisplacement;
 		b->shiftPosition(displacement);
