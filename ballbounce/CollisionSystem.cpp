@@ -1,18 +1,22 @@
 #include "CollisionSystem.h"
 #include "gtx/transform.hpp"
 
-
+/*
+	creates a new collision system entity
+*/
 CollisionSystem::CollisionSystem(std::vector<Entity*> * collisionWorld)
 {
 	this->collisionWorld = collisionWorld;
 }
-
 
 CollisionSystem::~CollisionSystem()
 {
 
 }
 
+/*
+	updates the colliding entities, changing their velocities and shifting them such that they are no longer intersecting
+*/
 void CollisionSystem::update() 
 {
 	for (int i = 0; i < collisionWorld->size(); i++) {
@@ -26,7 +30,6 @@ void CollisionSystem::update()
 		}
 	}
 }
-
 
 void CollisionSystem::collision(Entity * e1, Entity * e2)
 {

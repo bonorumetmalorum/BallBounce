@@ -11,7 +11,10 @@ GLFWwindow * RenderManager::window;
 double RenderManager::lastxpos;
 double RenderManager::lastypos;
 
-
+/*
+	create a new renderManager
+	@param camera camera to use to render the scene from
+*/
 RenderManager::RenderManager(Camera * camera)
 {
 	isInMenuMode = false;
@@ -49,10 +52,18 @@ RenderManager::RenderManager(Camera * camera)
 	glfwSetKeyCallback(window, key_callback);
 }
 
+/*
+	checks to see if the window should close and the simulation should terminate
+	@return true if the window should close false otherwise
+*/
 bool RenderManager::play() {
 	return glfwWindowShouldClose(window);
 }
 
+/*
+	draws the entity to the current window context
+	@param e the entity to draw
+*/
 void RenderManager::draw(Entity * e) {
 
 
@@ -84,6 +95,10 @@ RenderManager::~RenderManager()
 {
 }
 
+/*
+	poll the input for new input events
+	@param deltaTime the change in time
+*/
 void RenderManager::pollInput(float deltaTime)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -107,11 +122,18 @@ void RenderManager::pollInput(float deltaTime)
 	this->cam->look(mouseX, mouseY);
 }
 
+/*
+	get the window context associated with this render manager
+	@return GLFWwindow * window context
+*/
 GLFWwindow* RenderManager::getWindow()
 {
 	return window;
 }
 
+/*
+	switch the input mode from camera control to menu control
+*/
 void RenderManager::switchInputMode()
 {
 	if (isInMenuMode) {

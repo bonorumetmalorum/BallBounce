@@ -2,6 +2,13 @@
 #include <iostream>
 
 
+/*
+	create a new ball
+	@param position position of this ball
+	@param radius the radius of the ball
+	@param mass the mass of the ball
+	@param cors the coefficient of restitution of the ball
+*/
 Ball::Ball(glm::vec3 position, float radius, float mass, float cors) : Entity(position, radius, mass, 1)
 {
 	loadMesh();
@@ -14,6 +21,7 @@ Ball::Ball(glm::vec3 position, float radius, float mass, float cors) : Entity(po
 Ball::~Ball()
 {
 }
+
 
 void Ball::applyForce(glm::vec3 force)
 {
@@ -31,6 +39,9 @@ void Ball::updatePosition(float deltaTime, bool freeFall)
 	force = glm::vec3(0);
 }
 
+/*
+	bind relevant buffers for drawing
+*/
 void Ball::draw()
 {
 	glBindVertexArray(this->vao);
@@ -38,21 +49,27 @@ void Ball::draw()
 	glBindVertexArray(0);
 }
 
+/*
+	get the raidus of this ball
+	@return float radius
+*/
 float Ball::getRadius()
 {
 	return radius;
 }
 
+/*
+	get this balls coefficient of restitution
+	@return float cors value
+*/
 float Ball::getCors()
 {
 	return cors;
 }
 
-glm::vec3 Ball::getVelocity()
-{
-	return velocity;
-}
-
+/*
+	
+*/
 void Ball::loadMesh() {
 	std::string warn;
 	std::string err;

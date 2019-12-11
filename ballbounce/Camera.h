@@ -32,9 +32,6 @@ public:
 	glm::vec3 getUp();
 	glm::vec3 getFront();
 
-	glm::mat4x4 getView();
-	glm::mat4x4 getProjection();
-	glm::mat4x4 getRotation();
 	float getFov();
 	void updateFov(float amount);
 
@@ -42,9 +39,6 @@ private:
 	glm::vec3 position;
 	glm::vec3 front;
 	glm::vec3 up;
-	glm::mat4x4 view;
-	glm::mat4x4 rotation;
-	glm::mat4x4 projection;
 	float fov = 45.0f;
 	float movementSpeed = 2.5;
 	float lookSpeed = 0.1;

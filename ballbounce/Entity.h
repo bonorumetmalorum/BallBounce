@@ -40,6 +40,8 @@ public:
 
 	void updateVelocity(glm::vec3 velocity);
 
+	glm::vec3 getVelocity();
+
 private:
 
 	float angle;

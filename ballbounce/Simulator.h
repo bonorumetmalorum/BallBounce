@@ -21,8 +21,6 @@ public:
 	Simulator(RenderManager * r);
 	~Simulator();
 
-
-
 	void addBall(glm::vec3 position, float radius, float mass, float cors);
 
 	void draw();
@@ -34,8 +32,6 @@ public:
 	void stop();
 
 	void menu();
-
-	void setup();
 
 	float getTimeStep();
 

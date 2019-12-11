@@ -14,6 +14,11 @@ PhysicsSystem::~PhysicsSystem()
 {
 }
 
+/*
+	applies all forces to entities and updates their positions accordingly
+	@param deltaTime the change in time
+	@param freeFall true to apply force false to have acceleration = 9.81 m/s^2
+*/
 void PhysicsSystem::update(float deltaTime, bool freeFall)
 {
 	for (Entity * e : *physWorld) {
@@ -30,6 +35,10 @@ void PhysicsSystem::update(float deltaTime, bool freeFall)
 	}
 }
 
+/*
+	sets the wind force in the scene
+	@param wind a vector defining the force of wind in each axis
+*/
 void PhysicsSystem::setWind(glm::vec3 wind)
 {
 	this->wind = wind;

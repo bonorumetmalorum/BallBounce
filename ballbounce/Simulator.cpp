@@ -1,10 +1,16 @@
 #include "Simulator.h"
 
 
-
+/*
+	static instances to work with GLFW
+*/
 RenderManager * Simulator::rm;
 State Simulator::state = State::SETUP;
 
+/*
+	returns a new instance of the simulator, the access point to the physical simulation
+	@return Simulator instance
+*/
 Simulator::Simulator(RenderManager * r)
 {
 	ps = new PhysicsSystem(&world);
@@ -16,6 +22,9 @@ Simulator::Simulator(RenderManager * r)
 	glfwSetKeyCallback(rm->getWindow(), play_pause_input_callback);
 }
 
+/*
+	a convenience binding for GLFW to support keyboard play pause functionality
+*/
 void Simulator::play_pause_input_callback(GLFWwindow * window, int key, int scancode, int action, int mods) {
 	if (key == GLFW_KEY_PERIOD && action == GLFW_PRESS) {
 		if (state == PLAY) {
@@ -37,11 +46,21 @@ Simulator::~Simulator()
 {
 }
 
+/*
+	adds a new ball to the simulation
+	@param position the position of the ball
+	@param radius the radius of the ball
+	@param mass the mass of the ball
+	@param cors the coefficient of restitution (bounciness)
+*/
 void Simulator::addBall(glm::vec3 position, float radius, float mass, float cors)
 {
 	world.push_back(new Ball(position, radius, mass, cors));
 }
 
+/*
+	draws all the entities in the simulation using the current instance of the RenderManager instantiated for this simulator
+*/
 void Simulator::draw(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -61,6 +80,10 @@ void Simulator::draw(){
 	glfwSwapBuffers(rm->getWindow());
 }
 
+/*
+	updates all the entities in the simulation using collision detection and physics, in freefall or taking into account other forces
+	@param deltaTime the change in time
+*/
 void Simulator::update(float deltaTime)
 {
 	world.at(0)->setPosition(glm::vec3(0, floorPosition, 0));
@@ -71,6 +94,10 @@ void Simulator::update(float deltaTime)
 	}
 }
 
+/*
+	updates all the entities in the simulation using collision detection and physics, freefall or taking into account other forces
+	However, this updates in fixed time steps
+*/
 void Simulator::fixedUpdate()
 {
 	world.at(0)->setPosition(glm::vec3(0, floorPosition, 0));
@@ -81,16 +108,25 @@ void Simulator::fixedUpdate()
 	}
 }
 
+/*
+	sets the state of the simulation to PLAY (runs the simulation)
+*/
 void Simulator::play()
 {
 	state = State::PLAY;
 }
 
+/*
+	sets the state of the simulation to PAUSE and stops advancing the simulation
+*/
 void Simulator::pause()
 {
 	state = State::PAUSE;
 }
 
+/*
+	sets the state of the simulation to STOP and resets the positions of all entities to their starting position
+*/
 void Simulator::stop()
 {
 	state = State::STOP;
@@ -99,11 +135,17 @@ void Simulator::stop()
 	}
 }
 
+/*
+	removes all entities except the floor
+*/
 void Simulator::reset() {
 	world.clear();
 	world.push_back(new Plane(glm::vec3(0), 200));
 }
 
+/*
+	function that contains the menu items for the simulation
+*/
 void Simulator::menu()
 {
 
@@ -164,25 +206,27 @@ void Simulator::menu()
 	ImGui::End();
 }
 
-void Simulator::setup() {
-	if (state == State::STOP) {
-
-	}
-	else {
-		return;
-	}
-}
-
+/*
+	returns the current value of the timestep for fixedUpdate
+	@return float the current value of the timestep
+*/
 float Simulator::getTimeStep()
 {
 	return timeStep;
 }
 
+/*
+	Enables the fixedUpdate for use instead of update
+*/
 bool Simulator::getFixedUpdateEnabled()
 {
 	return fixedUpdateEnabled;
 }
 
+/*
+	gets the current value of the target framerate
+	@return int the target framerate
+*/
 int Simulator::getFrameRate()
 {
 	return frameRate;

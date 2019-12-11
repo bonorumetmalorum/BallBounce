@@ -56,9 +56,9 @@ Plane::~Plane()
 {
 }
 
-
-
-
+/*
+	bind the buffers for drawing
+*/
 void Plane::draw()
 {
 	glBindVertexArray(this->vao);
@@ -66,11 +66,20 @@ void Plane::draw()
 	glBindVertexArray(0);
 }
 
+/*
+	get the normal of this plane
+	@return vec3 normal of plane
+*/
 glm::vec3 Plane::getNormal()
 {
 	return normal;
 }
 
+/*
+	get the vertex at provided index
+	@param index index of vertex
+	@return vec3 vertex
+*/
 glm::vec3 Plane::getVertex(int index)
 {
 	glm::vec3 vertex;
