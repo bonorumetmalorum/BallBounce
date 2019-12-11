@@ -110,7 +110,7 @@ bool CollisionSystem::sphereSphereCollision(Ball * a, Ball * b, glm::vec3 & disp
 		float magnitudeOfDisplacement = radiusSum - distanceBetweenCentres;
 		glm::vec3 displacementDirection = glm::normalize(c1ToC2);
 		displacement = displacementDirection * magnitudeOfDisplacement;
-		b->shiftPosition(displacement);
+		a->shiftPosition(displacement);
 		std::cout << "sphere collision" << std::endl;
 		return true;
 	}
