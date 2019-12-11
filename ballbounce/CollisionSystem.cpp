@@ -21,26 +21,25 @@ void CollisionSystem::update()
 			if (i == j)
 				continue;
 			if (collisionWorld->at(j)->isKinematic()) {
-				glm::vec3 impulse = glm::vec3(0);
-				glm::vec3 displacement = glm::vec3(0);
-				if (collision(collisionWorld->at(i), collisionWorld->at(j), impulse, displacement)) {
-					collisionWorld->at(j)->shiftPosition(displacement);
-					//collisionWorld->at(j)->updateVelocity(impulse);
-				}
+				collision(collisionWorld->at(i), collisionWorld->at(j));
 			}
 		}
 	}
 }
 
 
-bool CollisionSystem::collision(Entity * e1, Entity * e2, glm::vec3 & impulseOUT, glm::vec3 & displacementOUT)
+void CollisionSystem::collision(Entity * e1, Entity * e2)
 {
+	glm::vec3 impulse;
+	glm::vec3 shift;
 	if (e1->getType() == 1) {
 		
 		Ball * a = reinterpret_cast<Ball *>(e2);
 		Ball * b = reinterpret_cast<Ball *>(e1);
 
-		if (sphereSphereCollision(a, b, displacementOUT)) {
+		if (sphereSphereCollision(a, b, shift)) {
+
+			e2->shiftPosition(shift);
 
 			glm::vec3 veca = a->getPosition() - b->getPosition();
 			veca = glm::normalize(veca);
@@ -64,28 +63,25 @@ bool CollisionSystem::collision(Entity * e1, Entity * e2, glm::vec3 & impulseOUT
 				avecx * (2 * a->getMass()) / (a->getMass() + b->getMass()) + 
 				bvecx * (b->getMass() - a->getMass()) / (a->getMass() + b->getMass()) + bvecy;
 
-			//a->shiftPosition(a->getPosition() - 1.0f);
-			//b->shiftPosition(b->getPosition() - 1.0f);
-
 			a->updateVelocity(impulsea);
 			b->updateVelocity(impulseb);
-			return true;
+			return;
 		}
 		else {
-			return false;
+			return;
 		}
 	}
 	if (e1->getType() == 0) {
 		Ball * b = reinterpret_cast<Ball *>(e2);
 		Plane * p = reinterpret_cast<Plane *>(e1);
 		float vertVel = b->getVelocity().y * (b->getCors() * -1.0f);
-		if (spherePlaneCollision(b, p, displacementOUT)) {
+		if (spherePlaneCollision(b, p, shift)) {
+			b->shiftPosition(shift);
 			glm::vec3 impulse = glm::vec3(0.0, vertVel, 0.0);
 			b->updateVelocity(impulse);
-			return true;
+			return;
 		}
 	}
-	return false;
 }
 
 bool CollisionSystem::spherePlaneCollision(Ball * s, Plane * p, glm::vec3 & displacement)
@@ -110,7 +106,6 @@ bool CollisionSystem::sphereSphereCollision(Ball * a, Ball * b, glm::vec3 & disp
 		float magnitudeOfDisplacement = radiusSum - distanceBetweenCentres;
 		glm::vec3 displacementDirection = glm::normalize(c1ToC2);
 		displacement = displacementDirection * magnitudeOfDisplacement;
-		a->shiftPosition(displacement);
 		std::cout << "sphere collision" << std::endl;
 		return true;
 	}
