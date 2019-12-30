@@ -21,6 +21,9 @@ Entity::Entity(glm::vec3 position, float scale, float mass, int typeVariable)
 	this->scale = scale;
 	this->mass = mass;
 	this->typeVariable = typeVariable;
+	this->acceleration = glm::vec3(0.0f);
+	this->force = glm::vec3(0.0f);
+	this->angle = 0.0f;
 }
 
 Entity::~Entity()
@@ -153,7 +156,7 @@ void Entity::setPosition(glm::vec3 position)
 void Entity::updateVelocity(glm::vec3 velocity)
 {
 	if (kinematic) {
-		this->velocity = velocity;
+			this->velocity = velocity;
 	}
 }
 

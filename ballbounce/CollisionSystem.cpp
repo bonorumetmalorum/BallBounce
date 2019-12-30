@@ -19,26 +19,28 @@ CollisionSystem::~CollisionSystem()
 */
 void CollisionSystem::update() 
 {
+	std::vector<CollisionEvent> events;
 	for (int i = 0; i < collisionWorld->size(); i++) {
 		for (int j = 0; j < collisionWorld->size(); j++)
 		{
 			if (i == j)
 				continue;
-			if (collisionWorld->at(j)->isKinematic()) {
-				collision(collisionWorld->at(i), collisionWorld->at(j));
-			}
+			collision(collisionWorld->at(i), collisionWorld->at(j), events);
 		}
+	}
+	for (CollisionEvent ev : events) {
+		ev.e->updateVelocity(ev.impulse);
 	}
 }
 
-void CollisionSystem::collision(Entity * e1, Entity * e2)
+void CollisionSystem::collision(Entity * e1, Entity * e2, std::vector<CollisionSystem::CollisionEvent> & eventOUT)
 {
 	glm::vec3 impulse;
 	glm::vec3 shift;
-	if (e1->getType() == 1) {
+	if (e1->getType() == 1 && e2->getType() == 1) {
 		
-		Ball * a = reinterpret_cast<Ball *>(e2);
-		Ball * b = reinterpret_cast<Ball *>(e1);
+		Ball * a = reinterpret_cast<Ball *>(e1);
+		Ball * b = reinterpret_cast<Ball *>(e2);
 
 		if (sphereSphereCollision(a, b, shift)) {
 
@@ -66,22 +68,25 @@ void CollisionSystem::collision(Entity * e1, Entity * e2)
 				avecx * (2 * a->getMass()) / (a->getMass() + b->getMass()) + 
 				bvecx * (b->getMass() - a->getMass()) / (a->getMass() + b->getMass()) + bvecy;
 
-			a->updateVelocity(impulsea);
-			b->updateVelocity(impulseb);
+			CollisionEvent ev1{e1, impulsea};
+			CollisionEvent ev2{e2, impulseb};
+			eventOUT.push_back(ev1);
+			eventOUT.push_back(ev2);
 			return;
 		}
 		else {
 			return;
 		}
 	}
-	if (e1->getType() == 0) {
+	if (e1->getType() == 0 || e2->getType() == 1) {
 		Ball * b = reinterpret_cast<Ball *>(e2);
 		Plane * p = reinterpret_cast<Plane *>(e1);
 		float vertVel = b->getVelocity().y * (b->getCors() * -1.0f);
 		if (spherePlaneCollision(b, p, shift)) {
 			b->shiftPosition(shift);
 			glm::vec3 impulse = glm::vec3(0.0, vertVel, 0.0);
-			b->updateVelocity(impulse);
+			CollisionEvent ev{ e2, impulse };
+			eventOUT.push_back(ev);
 			return;
 		}
 	}
