@@ -44,32 +44,38 @@ void CollisionSystem::collision(Entity * e1, Entity * e2, std::vector<CollisionS
 
 		if (sphereSphereCollision(a, b, shift)) {
 
-			e2->shiftPosition(shift);
+			e1->shiftPosition(shift/2.0f);
+			e2->shiftPosition(shift / 2.0f * -1.0f);
 
-			glm::vec3 veca = a->getPosition() - b->getPosition();
-			veca = glm::normalize(veca);
+			//step1
+			glm::vec3 vecx = a->getPosition() - b->getPosition();
+			vecx = glm::normalize(vecx);
 
-			glm::vec3 avel = a->getVelocity();
-			float axdot = glm::dot(glm::vec3(1, 0, 0), avel);
-			glm::vec3 avecx = veca * axdot;
-			glm::vec3 avecy = avel - avecx;
+			//x dir and y dir
+			glm::vec3 vecv1 = a->getVelocity();
+			float x1 = glm::dot(glm::vec3(1, 0, 0), vecv1);
+			glm::vec3 vecv1x = vecx * x1;
+			glm::vec3 vecv1y = vecv1 - vecv1x;
 
-			glm::vec3 vecb = b->getPosition() - a->getPosition();
-			vecb = glm::normalize(vecb);
-			glm::vec3 bvel = b->getVelocity( );
-			float bxdot = glm::dot(glm::vec3(1, 0, 0), bvel);
-			glm::vec3 bvecx = vecb * bxdot;
-			glm::vec3 bvecy = bvel - bvecx;
+			//same for other sphere
+			vecx = vecx * -1.0f;
+			glm::vec3 vecv2 = b->getVelocity( );
+			float x2 = glm::dot(glm::vec3(1, 0, 0), vecv2);
+			glm::vec3 vecv2x = vecv2 * x2;
+			glm::vec3 vecv2y = vecv2 - vecv2x;
 
-			glm::vec3 impulsea = 
-				avecx * (a->getMass() * b->getMass()) / (a->getMass() + b->getMass()) + 
-				bvecx * (2 * b->getMass()) / (a->getMass() + b->getMass()) + avecy;
-			glm::vec3 impulseb = 
-				avecx * (2 * a->getMass()) / (a->getMass() + b->getMass()) + 
-				bvecx * (b->getMass() - a->getMass()) / (a->getMass() + b->getMass()) + bvecy;
+			glm::vec3 speeda = 
+				vecv1x * (a->getMass() * b->getMass()) / (a->getMass() + b->getMass()) + 
+				vecv2x * (2 * b->getMass()) / (a->getMass() + b->getMass()) + vecv1y;
+			glm::vec3 speedb = 
+				vecv1x * (2 * a->getMass()) / (a->getMass() + b->getMass()) + 
+				vecv2x * (b->getMass() - a->getMass()) / (a->getMass() + b->getMass()) + vecv2y;
 
-			CollisionEvent ev1{e1, impulsea};
-			CollisionEvent ev2{e2, impulseb};
+			/*glm::vec3 speeda = glm::vec3(0.0f);
+			glm::vec3 speedb = glm::vec3(0.0f);*/
+
+			CollisionEvent ev1{e1, speeda };
+			CollisionEvent ev2{e2, speedb };
 			eventOUT.push_back(ev1);
 			eventOUT.push_back(ev2);
 			return;
@@ -78,9 +84,25 @@ void CollisionSystem::collision(Entity * e1, Entity * e2, std::vector<CollisionS
 			return;
 		}
 	}
-	if (e1->getType() == 0 || e2->getType() == 1) {
-		Ball * b = reinterpret_cast<Ball *>(e2);
-		Plane * p = reinterpret_cast<Plane *>(e1);
+	if (e1->getType() == 0 || e2->getType() == 0) {
+		Ball* b;
+
+		if (e1->getType() == 1)
+			b = reinterpret_cast<Ball*>(e1);
+		else
+			b = reinterpret_cast<Ball*>(e2);
+
+		Plane* p;
+
+		if (e1->getType() == 0)
+			p = reinterpret_cast<Plane*>(e1);
+		else
+			p = reinterpret_cast<Plane*>(e2);
+
+		if (b->getPosition().y < p->getPosition().y) {
+			glm::vec3 newpos = (b->getPosition() + glm::vec3(0, p->getPosition().y + b->getRadius(), 0));
+			b->setPosition(newpos);
+		}
 		float vertVel = b->getVelocity().y * (b->getCors() * -1.0f);
 		if (spherePlaneCollision(b, p, shift)) {
 			b->shiftPosition(shift);
@@ -94,9 +116,11 @@ void CollisionSystem::collision(Entity * e1, Entity * e2, std::vector<CollisionS
 
 bool CollisionSystem::spherePlaneCollision(Ball * s, Plane * p, glm::vec3 & displacement)
 {
+
 	glm::vec3 directionToPlane = s->getPosition() - p->getPosition();
 	float projection = glm::dot(p->getNormal(), directionToPlane);
 	if (projection < s->getRadius()) {
+		std::cout << "sphere plane collision" << std::endl;
 		float magnitudeOfDisplacement = s->getRadius() - projection;
 		glm::vec3 displacementDirection = p->getNormal();
 		displacement = (displacementDirection * magnitudeOfDisplacement);
