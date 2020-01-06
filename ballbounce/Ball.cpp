@@ -9,13 +9,15 @@
 	@param mass the mass of the ball
 	@param cors the coefficient of restitution of the ball
 */
-Ball::Ball(glm::vec3 position, float radius, float mass, float cors) : Entity(position, radius, mass, 1)
+Ball::Ball(glm::vec3 position, float radius, float mass, float cors, glm::vec3 vel = glm::vec3(0.0f)) : Entity(position, radius, mass, 1)
 {
 	loadMesh();
 	this->radius = radius;
 	kinematic = true;
 	this->cors = cors;
 	force = glm::vec3(0.0, mass * 9.81f, 0.0);
+	this->velocity = vel;
+	this->initVelocity = vel;
 }
 
 Ball::~Ball()
@@ -65,6 +67,12 @@ float Ball::getRadius()
 float Ball::getCors()
 {
 	return cors;
+}
+
+void Ball::reset()
+{
+	Entity::reset();
+	velocity = initVelocity;
 }
 
 /*

@@ -53,9 +53,9 @@ Simulator::~Simulator()
 	@param mass the mass of the ball
 	@param cors the coefficient of restitution (bounciness)
 */
-void Simulator::addBall(glm::vec3 position, float radius, float mass, float cors)
+void Simulator::addBall(glm::vec3 position, float radius, float mass, float cors, glm::vec3 vel = glm::vec3(0.0f))
 {
-	world.push_back(new Ball(position, radius, mass, cors));
+	world.push_back(new Ball(position, radius, mass, cors, vel));
 }
 
 /*
@@ -163,10 +163,13 @@ void Simulator::menu()
 	ImGui::InputFloat("mass", &tmpMass);
 	ImGui::SliderFloat("radius", &tmpScale, 1.0f, 10.0f);
 	ImGui::SliderFloat("coefficient of restitution", &tmpCors, 0.0f, 1.0f);
+	ImGui::InputFloat("x velocity", &tmpVel.x);
+	ImGui::InputFloat("y velocity", &tmpVel.y);
+	ImGui::InputFloat("z velocity", &tmpVel.z);
 
 
 	if (ImGui::Button("Add")) {
-		addBall(tmpPos, tmpScale, tmpMass, tmpCors);
+		addBall(tmpPos, tmpScale, tmpMass, tmpCors, tmpVel);
 	}
 
 	ImGui::Text("Physics mode");

@@ -36,7 +36,7 @@ int main(void)
 
 	Simulator * sim = new Simulator(&renderer);
 	//sim->addBall(glm::vec3(0.0, 13.0, 0.0), 1, 1, 1);
-	sim->addBall(glm::vec3(0.0, 10.0, 0.0), 1, 1, 1);
+	sim->addBall(glm::vec3(0.0, 10.0, 0.0), 1, 1, 1, glm::vec3(0.0f));
 
 	DeltaTime dT;
 	dT.lag = 0.0;

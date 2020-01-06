@@ -32,7 +32,7 @@ public:
 
 	void shiftPosition(glm::vec3 shiftAmount);
 
-	void reset();
+	virtual void reset();
 
 	void setAcceleration(glm::vec3 acc);
 
