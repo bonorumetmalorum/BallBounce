@@ -18,7 +18,7 @@ public:
 
 private:
 	std::vector<Entity*> * collisionWorld;
-	void collision(Entity * e1, Entity * e2, std::vector<CollisionSystem::CollisionEvent> & eventOUT);
+	void collision(Entity * e1, Entity * e2, std::vector<CollisionSystem::CollisionEvent> & eventOUT, std::vector<CollisionSystem::CollisionEvent>& planeEventOUT);
 	bool spherePlaneCollision(Ball * spherCentre, Plane * p, glm::vec3 & displacement);
 	bool sphereSphereCollision(Ball * a, Ball * b, glm::vec3 & displacement);
 };
