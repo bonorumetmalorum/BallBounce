@@ -2,6 +2,14 @@
 #include <iostream>
 
 
+std::vector<tinyobj::shape_t> Ball::shapes;
+std::vector<tinyobj::material_t> Ball::materials;
+tinyobj::attrib_t Ball::ball;
+
+GLuint Ball::vertexBuffer;
+GLuint Ball::indexBuffer;
+GLuint Ball::vao;
+
 /*
 	create a new ball
 	@param position position of this ball
@@ -11,7 +19,10 @@
 */
 Ball::Ball(glm::vec3 position, float radius, float mass, float cors, glm::vec3 vel = glm::vec3(0.0f)) : Entity(position, radius, mass, 1)
 {
-	loadMesh();
+	if (shapes.empty() && materials.empty() && ball.vertices.empty()) {
+		std::cout << "hello the ball is empty" << std::endl;
+		loadMesh();
+	}
 	this->radius = radius;
 	kinematic = true;
 	this->cors = cors;
@@ -52,7 +63,7 @@ void Ball::draw()
 }
 
 /*
-	get the raidus of this ball
+	get the radius of this ball
 	@return float radius
 */
 float Ball::getRadius()
@@ -69,15 +80,15 @@ float Ball::getCors()
 	return cors;
 }
 
+/*
+	reset this ball to initial values
+*/
 void Ball::reset()
 {
 	Entity::reset();
 	velocity = initVelocity;
 }
 
-/*
-	
-*/
 void Ball::loadMesh() {
 	std::string warn;
 	std::string err;
