@@ -71,9 +71,9 @@ int main(void)
 				sim->update(dT.delta);
 			}
 			sim->draw();
+
 			dT.timeAcc = 0;
 		}
-		
 		renderer.pollInput(dT.delta);
 	}
 
