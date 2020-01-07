@@ -92,14 +92,12 @@ void CollisionSystem::collision(Entity * e1, Entity * e2, std::vector<CollisionS
 bool CollisionSystem::spherePlaneCollision(Ball * s, Plane * p, glm::vec3 & displacement)
 {
 	if (s->getPosition().y <= p->getPosition().y) {
-		std::cout << "below plane adjusting y position" << std::endl;
 		glm::vec3 newpos = (s->getPosition() + glm::vec3(0, p->getPosition().y + s->getRadius(), 0));
 		s->setPosition(newpos);
 	}
 	glm::vec3 directionToPlane = s->getPosition() - p->getPosition();
 	float projection = glm::dot(p->getNormal(), directionToPlane);
 	if (projection < s->getRadius()) {
-		//std::cout << "sphere plane collision" << std::endl;
 		float magnitudeOfDisplacement = s->getRadius() - projection;
 		glm::vec3 displacementDirection = p->getNormal();
 		displacement = (displacementDirection * magnitudeOfDisplacement);
@@ -112,7 +110,6 @@ bool CollisionSystem::sphereSphereCollision(Ball * a, Ball * b, glm::vec3 & disp
 {
 	glm::vec3 c1ToC2 = a->getPosition() - b->getPosition();
 	if (c1ToC2 == glm::vec3(0.0f)) {
-		std::cout << "completely overlapping" << std::endl;
 		displacement = glm::vec3(0.0f, a->getRadius(), 0.0f);
 		return true;
 	}
@@ -122,7 +119,6 @@ bool CollisionSystem::sphereSphereCollision(Ball * a, Ball * b, glm::vec3 & disp
 		float magnitudeOfDisplacement = radiusSum - distanceBetweenCentres;
 		glm::vec3 displacementDirection = glm::normalize(c1ToC2);
 		displacement = displacementDirection * magnitudeOfDisplacement;
-		//std::cout << "sphere collision" << std::endl;
 		return true;
 	}
 	return false;

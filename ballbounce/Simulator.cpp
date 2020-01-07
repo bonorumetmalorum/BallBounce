@@ -33,7 +33,6 @@ void Simulator::play_pause_input_callback(GLFWwindow * window, int key, int scan
 		else {
 			state = PLAY;
 		}
-		std::cout << "hello" << std::endl;
 	}
 	if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
 	{

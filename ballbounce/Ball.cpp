@@ -20,7 +20,6 @@ GLuint Ball::vao;
 Ball::Ball(glm::vec3 position, float radius, float mass, float cors, glm::vec3 vel = glm::vec3(0.0f)) : Entity(position, radius, mass, 1)
 {
 	if (shapes.empty() && materials.empty() && ball.vertices.empty()) {
-		std::cout << "hello the ball is empty" << std::endl;
 		loadMesh();
 	}
 	this->radius = radius;
