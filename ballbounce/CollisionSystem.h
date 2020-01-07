@@ -6,6 +6,11 @@
 
 class CollisionSystem
 {
+	struct CollisionEvent {
+		Entity* e;
+		glm::vec3 impulse;
+	};
+
 public:
 	CollisionSystem(std::vector<Entity*> * collisionWorld);
 	~CollisionSystem();
@@ -13,7 +18,8 @@ public:
 
 private:
 	std::vector<Entity*> * collisionWorld;
-	void collision(Entity * e1, Entity * e2);
+	void collision(Entity * e1, Entity * e2, std::vector<CollisionSystem::CollisionEvent> & eventOUT, std::vector<CollisionSystem::CollisionEvent>& planeEventOUT);
 	bool spherePlaneCollision(Ball * spherCentre, Plane * p, glm::vec3 & displacement);
 	bool sphereSphereCollision(Ball * a, Ball * b, glm::vec3 & displacement);
 };
+

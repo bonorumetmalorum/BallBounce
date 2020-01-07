@@ -1,10 +1,17 @@
 #include "Plane.h"
 
+std::vector<tinyobj::shape_t> Plane::shapes;
+std::vector<tinyobj::material_t> Plane::materials;
+tinyobj::attrib_t Plane::wall;
 
+GLuint Plane::vertexBuffer = NULL;
+GLuint Plane::indexBuffer = NULL;
+GLuint Plane::vao = NULL;
 
 Plane::Plane(glm::vec3 position, float scale) : Entity(position, scale, 0.0, 0)
 {
-	loadMesh();
+	if(vertexBuffer == NULL && indexBuffer == NULL && vao == NULL)
+		loadMesh();
 }
 
 void Plane::loadMesh() 

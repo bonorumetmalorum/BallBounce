@@ -21,7 +21,7 @@ public:
 	Simulator(RenderManager * r);
 	~Simulator();
 
-	void addBall(glm::vec3 position, float radius, float mass, float cors);
+	void addBall(glm::vec3 position, float radius, float mass, float cors, glm::vec3 vel);
 
 	void draw();
 	void update(float deltaTime);
@@ -51,6 +51,7 @@ private:
 	CollisionSystem * cs;
 	static RenderManager * rm;
 	glm::vec3 tmpPos;
+	glm::vec3 tmpVel;
 	float tmpScale = 1.0;
 	float tmpMass;
 	bool freeFall = false;

@@ -21,13 +21,13 @@ public:
 
 private:
 
-	std::vector<tinyobj::shape_t> shapes;
-	std::vector<tinyobj::material_t> materials;
-	tinyobj::attrib_t wall;
+	static std::vector<tinyobj::shape_t> shapes;
+	static std::vector<tinyobj::material_t> materials;
+	static tinyobj::attrib_t wall;
 	
-	GLuint vertexBuffer;
-	GLuint indexBuffer;
-	GLuint vao;
+	static GLuint vertexBuffer;
+	static GLuint indexBuffer;
+	static GLuint vao;
 	
 	glm::vec3 normal = glm::vec3(0.0,1.0,0.0);
 
