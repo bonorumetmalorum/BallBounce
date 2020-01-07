@@ -15,7 +15,7 @@ CollisionSystem::~CollisionSystem()
 }
 
 /*
-	updates the colliding entities, changing their velocities and shifting them such that they are no longer intersecting
+	updates the colliding entities, applying collision response and shifting them such that they are no longer intersecting
 */
 void CollisionSystem::update() 
 {
