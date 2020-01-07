@@ -56,19 +56,20 @@ int main(void)
 		glfwPollEvents();
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
 
-		if (sim->getFixedUpdateEnabled()) {
-			while (dT.lag >= sim->getTimeStep()) {
-				sim->fixedUpdate();
-				dT.lag -= sim->getTimeStep();
-			}
-		}
-		else {
-			sim->update(dT.delta);
-		}
+
 
 		if (dT.timeAcc < (1 / (float)sim->getFrameRate())) {
 		}
 		else {
+			if (sim->getFixedUpdateEnabled()) {
+				while (dT.lag >= sim->getTimeStep()) {
+					sim->fixedUpdate();
+					dT.lag -= sim->getTimeStep();
+				}
+			}
+			else {
+				sim->update(dT.delta);
+			}
 			sim->draw();
 			dT.timeAcc = 0;
 		}
